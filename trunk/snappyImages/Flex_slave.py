@@ -80,4 +80,4 @@ def timer100msEvent(currentMs):
         sens +=  str(5) + ':' + str(sen[5]) + '.'
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one mesg
     print "sens  = % s"   % sens
-    rpc(serverAddr, "logEvent", inpstr)    # Send package to server,Invoke Log event Function on the server  
+    rpc(serverAddr, "logEvent", inpstr)     # Send package to server,Invoke Log event Function on the server  
