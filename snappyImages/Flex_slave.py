@@ -89,6 +89,5 @@ def buttonEvent(pinNum, isSet):
      if pinNum == (addrBit0 or addrBit1 or addrBit2) and isSet:
         addreBits = buttonRead()
     
-def buttonRead():
-    
+def buttonRead():    
     return int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)
