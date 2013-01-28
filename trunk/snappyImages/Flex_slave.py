@@ -3,7 +3,7 @@ Title:    Slave device to read flexSensor values
 Author:   Kartik Karuna <kartik@kth.se>,Samarth Deo <samarthd@kth.se>
 File:     $Id: Flex_slave.py ,v 1.2 2013/01/015 17:07:18 Kartik Exp $
 Software: synapse IDE
-Hardware: SM700 , Ver 2.4.11
+Hardware: SM700, Ver 2.4.11
 
 Description:
     this code reads Analog values for 8 flex sensors and encodes it 
