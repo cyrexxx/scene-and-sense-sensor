@@ -47,7 +47,7 @@ def startupEvent():
     monitorPin(addrBit2, True)   # Monitor for button press
 
     #convert address bits to intiger number 
-    addreBits = int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)
+    addreBits = buttonRead()
     #mcastRpc
     
 # Tries to find an active server
@@ -55,9 +55,9 @@ def findServer():
     mcastRpc(1,5,'svrAddr')
     
 # A server is announced to th slae , save its address 
-def serverAt(addr):
-    global serverAddr
-    serverAddr = addr[:]
+#def serverAt(addr):
+    #global serverAddr
+    #serverAddr = addr[:]
     
 """def setThreshold(newThreshold):
     #Use this to change the 'darkness' threshold from the default of 85%
@@ -69,9 +69,9 @@ def setRange(newRange):
     global requiredRange
     requiredrange = newRange"""
     
-## Do every 100 MS    
-@setHook(HOOK_100MS)
-def timer100msEvent(currentMs):
+## Do every 10 MS    
+"""@setHook(HOOK_10MS)
+def timer10msEvent(currentMs):
     global addreBits
 
     # Read in the Analog values from the Sensors
@@ -80,4 +80,15 @@ def timer100msEvent(currentMs):
         sens +=  str(5) + ':' + str(sen[5]) + '.'
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one mesg
     print "sens  = % s"   % sens
-    rpc(serverAddr, "logEvent", inpstr)     # Send package to server,Invoke Log event Function on the server  
+    rpc(serverAddr, "logEvent", inpstr)    # Send package to server,Invoke Log event Function on the server  
+    
+@setHook(HOOK_GPIN)
+def buttonEvent(pinNum, isSet):    
+     #Action taken when the on-board buttton is pressed (i.e. change address )
+     global addreBits,addrBit0,addrBit1,addrBit2
+     if pinNum == (addrBit0 or addrBit1 or addrBit2) and isSet:
+        addreBits = buttonRead()
+    
+def buttonRead():
+    global addrBit0,addrBit1,addrBit2
+    return int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)""" 
