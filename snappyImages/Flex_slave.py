@@ -16,7 +16,7 @@ Include Files (Libs)
 #Lib
 from synapse.evalBase import *
 from synapse.nvparams import *
-from string import *
+#from string import *
 
 serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
 
@@ -49,17 +49,17 @@ def startupEvent():
     #convert address bits to intiger number 
     addreBits = buttonRead()
     #mcastRpc
-    
+   
 # Tries to find an active server
 def findServer():
     mcastRpc(1,5,'svrAddr')
     
 # A server is announced to th slae , save its address 
-#def serverAt(addr):
-    #global serverAddr
-    #serverAddr = addr[:]
+def serverAt(addr):
+    global serverAddr
+    serverAddr = addr[:]
     
-"""def setThreshold(newThreshold):
+def setThreshold(newThreshold):
     #Use this to change the 'darkness' threshold from the default of 85%
     global darkThreshold
     darkThreshold = newThreshold
@@ -67,10 +67,10 @@ def findServer():
 def setRange(newRange):
     #Use this to change the default 'required light range' from the default of 100 ADC counts
     global requiredRange
-    requiredrange = newRange"""
+    requiredrange = newRange
     
-## Do every 10 MS    
-"""@setHook(HOOK_10MS)
+"""## Do every 10 MS    
+@setHook(HOOK_10MS)
 def timer10msEvent(currentMs):
     global addreBits
 
@@ -80,15 +80,15 @@ def timer10msEvent(currentMs):
         sens +=  str(5) + ':' + str(sen[5]) + '.'
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one mesg
     print "sens  = % s"   % sens
-    rpc(serverAddr, "logEvent", inpstr)    # Send package to server,Invoke Log event Function on the server  
+    rpc(serverAddr, "logEvent", inpstr)    # Send package to server,Invoke Log event Function on the server  """
     
 @setHook(HOOK_GPIN)
 def buttonEvent(pinNum, isSet):    
      #Action taken when the on-board buttton is pressed (i.e. change address )
-     global addreBits,addrBit0,addrBit1,addrBit2
+     global addreBits
      if pinNum == (addrBit0 or addrBit1 or addrBit2) and isSet:
         addreBits = buttonRead()
     
 def buttonRead():
-    global addrBit0,addrBit1,addrBit2
-    return int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)""" 
+    
+    return int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)
