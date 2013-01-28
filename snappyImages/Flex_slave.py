@@ -21,7 +21,7 @@ from synapse.nvparams import *
 serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
 
 # Sensor connection PINs on board.
-flexSensor = "0809101112131415"
+flexSensor = "0809101112131415"         #creating a table os strings.
 
 # Device address bits, 3 bits in total from DIP switch
 
@@ -77,8 +77,7 @@ def timer10msEvent(currentMs):
     # Read in the Analog values from the Sensors
     i=0
     j=0
-    while i<18:                  # read 8 sensor values
-        
+    while i<18:                                                    # read 8 sensor values
         sens +=  str(j) + ':' + str(readAdc(flexSensor[i])) + '.'
         i=i+2
         j=j+1
