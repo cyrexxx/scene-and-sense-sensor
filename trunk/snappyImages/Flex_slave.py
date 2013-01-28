@@ -84,7 +84,8 @@ def timer10msEvent(currentMs):
         
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one mesg
     print "sens  = % s"   % sens
-    rpc(serverAddr, "logEvent", inpstr)    # Send package to server, Invoke Log event Function on the server  
+    
+    rpc(serverAddr, "logEvent", loadNvParam(NV_DEVICE_NAME_ID),inpstr, 100)    # Send package to server, Invoke Log event Function on the server  
     
 @setHook(HOOK_GPIN)
 def buttonEvent(pinNum, isSet):    
