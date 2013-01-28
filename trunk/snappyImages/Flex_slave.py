@@ -21,7 +21,7 @@ from synapse.nvparams import *
 serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
 
 # Sensor connection PINs on board.
-flexSensor = [8, 9, 10, 11, 12, 13, 14, 15]
+flexSensor = "0809101112131415"
 
 # Device address bits, 3 bits in total from DIP switch
 
@@ -69,18 +69,23 @@ def setRange(newRange):
     global requiredRange
     requiredrange = newRange
     
-"""## Do every 10 MS    
+# Do every 10 MS    
 @setHook(HOOK_10MS)
 def timer10msEvent(currentMs):
-    global addreBits
-
+    global flexSensor12
+    
     # Read in the Analog values from the Sensors
-    for i in range (0, 8):                  # read 8 sensor values
-        sen[5] = readAdc(flexSensor[5])
-        sens +=  str(5) + ':' + str(sen[5]) + '.'
+    i=0
+    j=0
+    while i<18:                  # read 8 sensor values
+        
+        sens +=  str(j) + ':' + str(readAdc(flexSensor[i])) + '.'
+        i=i+2
+        j=j+1
+        
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one mesg
     print "sens  = % s"   % sens
-    rpc(serverAddr, "logEvent", inpstr)    # Send package to server,Invoke Log event Function on the server  """
+    rpc(serverAddr, "logEvent", inpstr)    # Send package to server, Invoke Log event Function on the server  
     
 @setHook(HOOK_GPIN)
 def buttonEvent(pinNum, isSet):    
