@@ -88,9 +88,6 @@ def timer1SEvent(currentMs):
     i=0
     
     # read 8 sensor values
-        
-    """ temp = readAdc(ADC_0)
-    temp2 =str(temp)"""
     sens =  str(i) + ':' +'1'+'#' + str(readAdc(ADC_0))  + '.'+'2'+'#' +  str(readAdc(ADC_1))+ '.' + '3'+'#' + str(readAdc(ADC_2)) + '.'+'4'+ '#' +  str(readAdc(ADC_3)) + '.'+'5'+ '#' +  str(readAdc(ADC_4)) + '.'+'2'+ str(readAdc(ADC_5)) + '.'+'2'+ str(readAdc(ADC_6)) + '.'+'2'+ str(readAdc(ADC_7))
       
        
