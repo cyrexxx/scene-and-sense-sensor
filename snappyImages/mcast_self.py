@@ -62,22 +62,18 @@ def incrementCount():
 def showButtonCount():
     if buttonCount & 1:
         pulsePin(LED1, 500, True)
-        mcastRpc(1,2,'logEvent',buttonCount)
     else:
         writePin(LED1, False)
     if buttonCount & 2:
         pulsePin(LED2, 500, True)
-        mcastRpc(1,2,'logEvent',buttonCount)
     else:
         writePin(LED2, False)
     if buttonCount & 4:
         pulsePin(LED3, 500, True)
-        mcastRpc(1,2,'logEvent',buttonCount)
     else:
         writePin(LED3, False)
     if buttonCount & 8:
         pulsePin(LED4, 500, True)
-        mcastRpc(1,2,'logEvent',buttonCount)
     else:
         writePin(LED4, False)
 
@@ -113,4 +109,4 @@ def reportButtonCount():
     """Report to others that button press took place"""
     global buttonCount
     showButtonCount()
-    mcastRpc(1,2,'logEvent',buttonCount)
+    mcastRpc(1,2,'setButtonCount',buttonCount)

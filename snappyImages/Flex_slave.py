@@ -15,13 +15,13 @@ Include Files (Libs)
 
 #Lib
 #from synapse.evalBase import *
-from synapse.nvparams import *
+#from synapse.nvparams import *
 #from string import *
 
 serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
 
 # Sensor connection PINs on board.
-flexSensor = "0809101112131415"         #creating a table os strings.
+flexSensor = (8,9,10,11,12,13,14,15)         #creating a table os strings.
 
 # Device address bits, 3 bits in total from DIP switch
 
@@ -29,22 +29,23 @@ addrBit0 = 57
 addrBit1 = 56
 addrBit2 = 55
 
+def makeInput(pin):
+    setPinDir(pin, False)   # set direction of the pin as output
+    setPinPullup(pin, True) # Power the pin for the Photocell
+    monitorPin(pin, True)   # Monitor for button press
+    
 # Things to do at startup
 @setHook(HOOK_STARTUP)
 def startupEvent():
-    findServer()
+    global addreBits
+    #findServer() ##in once server is ready 
+    
     # Set PIN directions and initialize
-    setPinDir(addrBit0, False)   # set direction of the pin as output
-    setPinPullup(addrBit0, True) # Power the pin for the Photocell
-    monitorPin(addrBit0, True)   # Monitor for button press
+    makeInput(addrBit0)
+    makeInput(addrBit1)
+    makeInput(addrBit2)
+    setRate(1)             # set rate of polling for buttons 
     
-    setPinDir(addrBit1, False)   # set direction of the pin as output 
-    setPinPullup(addrBit1, True) # Power the pin for the Photocell
-    monitorPin(addrBit1, True)   # Monitor for button press
-    
-    setPinDir(addrBit2, False)   # set direction of the pin as output
-    setPinPullup(addrBit2, True) # Power the pin for the Photocell
-    monitorPin(addrBit2, True)   # Monitor for button press
 
     #convert address bits to intiger number 
     addreBits = buttonRead()
@@ -76,15 +77,14 @@ def timer10msEvent(currentMs):
     
     # Read in the Analog values from the Sensors
     i=0
-    j=0
-    while i<18:                                                    # read 8 sensor values
-        sens +=  str(j) + ':' + str(readAdc(flexSensor[i])) + '.'
-        i=i+2
-        j=j+1
-        
+    
+    while i<9:                                                    # read 8 sensor values
+        sens +=  str(i) + ':' + str(readAdc(flexSensor[i])) + '.'
+        i=i+1
+       
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
     print "sens  = % s"   % sens
-    rpc(serverAddr, "logEvent",loadNvParam(NV_DEVICE_NAME_ID), inpstr , 100)    # Send package to server, Invoke Log event Function on the server  
+    rpc(serverAddr, "logEvent", inpstr , 100)    # Send package to server, Invoke Log event Function on the server  
     sendData()
     
 def sendData():
@@ -97,7 +97,7 @@ def sendData():
 def buttonEvent(pinNum, isSet):    
      #Action taken when the on-board buttton is pressed (i.e. change address )
      global addreBits
-     if pinNum == (addrBit0 or addrBit1 or addrBit2) and isSet:
+     if pinNum == (addrBit0 or addrBit1 or addrBit2):
         addreBits = buttonRead()
     
 def buttonRead():    
