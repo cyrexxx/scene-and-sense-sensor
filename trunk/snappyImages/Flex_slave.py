@@ -82,10 +82,16 @@ def timer10msEvent(currentMs):
         i=i+2
         j=j+1
         
-    inpstr = str(addreBits) + '#' + sens    # package the Values in to one mesg
+    inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
     print "sens  = % s"   % sens
+    rpc(serverAddr, "logEvent",loadNvParam(NV_DEVICE_NAME_ID), inpstr , 100)    # Send package to server, Invoke Log event Function on the server  
+    sendData()
     
-    rpc(serverAddr, "logEvent", loadNvParam(NV_DEVICE_NAME_ID),inpstr, 100)    # Send package to server, Invoke Log event Function on the server  
+def sendData():
+    global inpstr 
+    hello ="hello from straignt" 
+    mcastRpc(1,5,"logEvent",hello)
+    
     
 @setHook(HOOK_GPIN)
 def buttonEvent(pinNum, isSet):    
@@ -96,3 +102,8 @@ def buttonEvent(pinNum, isSet):
     
 def buttonRead():    
     return int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)
+
+@setHook(HOOK_RPC_SENT) #This is hooked into the HOOK_RPC_SENT event that is called after every RPC
+def rpcSentEvent():
+    sendData()
+    
