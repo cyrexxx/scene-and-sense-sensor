@@ -1,12 +1,30 @@
-# Copyright (C) 2011 Synapse Wireless, Inc.
-# Subject to your agreement of the disclaimer set forth below, permission is given by Synapse Wireless, Inc. ("Synapse") to you to freely modify, redistribute or include this SNAPpy code in any program. The purpose of this code is to help you understand and learn about SNAPpy by code examples.
-# BY USING ALL OR ANY PORTION OF THIS SNAPPY CODE, YOU ACCEPT AND AGREE TO THE BELOW DISCLAIMER. If you do not accept or agree to the below disclaimer, then you may not use, modify, or distribute this SNAPpy code.
-# THE CODE IS PROVIDED UNDER THIS LICENSE ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT THE COVERED CODE IS FREE OF DEFECTS, MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE COVERED CODE IS WITH YOU. SHOULD ANY COVERED CODE PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL DEVELOPER OR ANY OTHER CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY SERVICING, REPAIR OR CORRECTION. UNDER NO CIRCUMSTANCES WILL SYNAPSE BE LIABLE TO YOU, OR ANY OTHER PERSON OR ENTITY, FOR ANY LOSS OF USE, REVENUE OR PROFIT, LOST OR DAMAGED DATA, OR OTHER COMMERCIAL OR ECONOMIC LOSS OR FOR ANY DAMAGES WHATSOEVER RELATED TO YOUR USE OR RELIANCE UPON THE SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR IF SUCH DAMAGES ARE FORESEEABLE. THIS DISCLAIMER OF WARRANTY AND LIABILITY CONSTITUTES AN ESSENTIAL PART OF THIS LICENSE. NO USE OF ANY COVERED CODE IS AUTHORIZED HEREUNDER EXCEPT UNDER THIS DISCLAIMER.
 
-"""
-McastCounter.py ported to the SM700 EVB board
-  Press the select-switch on any device to increment counter on all devices.
-"""
+"""/****************************************************************************
+Title:    Slave device to read flexSensor values 
+Author:   Kartik Karuna <kartik@kth.se>,Samarth Deo <samarthd@kth.se>
+File:     $Id: Flex_slave.py ,v 1.2 2013/01/015 17:07:18 Kartik Exp $
+Software: synapse IDE
+Hardware: SM700 , Ver 2.4.33
+
+Description:
+    this code reads Analog values for 8 flex sensors and encodes it 
+    into one message and sends it over the air to the Server  
+Include Files (Libs)
+     synapse.evalBase 
+     synapse.nvparams 
+*****************************************************************************/"""
+
+serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
+
+# Sensor connection PINs on board.
+flexSensor = (8,9,10,11,12,13,14,15)         #creating a table os strings.
+
+# Device address bits, 3 bits in total from DIP switch
+
+addrBit0 = 57
+addrBit1 = 56
+addrBit2 = 55
+
 
 secondCounter = 0
 buttonCount = 0
@@ -18,95 +36,95 @@ LED2 = 24
 LED3 = 25
 LED4 = 1
 
-def makeOutput(pin):
-    setPinDir(pin, True)
-    writePin(pin, False)
+
+def makeInput(pin):
+    setPinDir(pin, False)   # set direction of the pin as output
+    setPinPullup(pin, True) # Power the pin for the DIP SW
+    monitorPin(pin, True)   # Monitor for button press
 
 @setHook(HOOK_STARTUP)
 def startupEvent():
     """This is hooked into the HOOK_STARTUP event"""
     global buttonState, buttonTime
-
-    # Monitor for button-press events
-    setPinDir(BUTTON_PIN, False)
-    setPinPullup(BUTTON_PIN, True)
-    monitorPin(BUTTON_PIN, True)
-    setRate(3)
+    global addreBits
+    
+    #findServer() ##in once server is ready 
+     
+    
+    # Set PIN directions and initialize
+    makeInput(addrBit0)
+    makeInput(addrBit1)
+    makeInput(addrBit2)
+    setRate(1)             # set rate of polling for buttons 
 
     # Initialize button-detect variables
-    buttonState = readPin(BUTTON_PIN)
-    buttonTime = getMs()
+    addreBits = buttonRead()
 
-    makeOutput(LED1)
-    makeOutput(LED2)
-    makeOutput(LED3)
-    makeOutput(LED4)
+def findServer():
+    z=1
+#mcastRpc(1,5,'svrAddr')
+
+def serverAt(addr):
+    global serverAddr
+    #serverAddr = addr[:]
+
 
 @setHook(HOOK_GPIN)
 def buttonEvent(pinNum, isSet):
     """Hooked into the HOOK_GPIN event"""
-    global buttonState, buttonTime, buttonCount
-    if pinNum == BUTTON_PIN:
-        buttonState = isSet
-        if not isSet:
-            buttonTime = getMs()
-            incrementCount()
+    global addreBits
+    if pinNum == (addrBit0 or addrBit1 or addrBit2):
+        addreBits = buttonRead()
 
-def incrementCount():
-    """Button press action - increment and report new count"""
-    global buttonCount
-    buttonCount = buttonCount + 1
-    buttonCount %= 100    # Wrap count at 99
-    reportButtonCount()
+def buttonRead():    
+    return int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)
 
-def showButtonCount():
-    if buttonCount & 1:
-        pulsePin(LED1, 500, True)
-    else:
-        writePin(LED1, False)
-    if buttonCount & 2:
-        pulsePin(LED2, 500, True)
-    else:
-        writePin(LED2, False)
-    if buttonCount & 4:
-        pulsePin(LED3, 500, True)
-    else:
-        writePin(LED3, False)
-    if buttonCount & 8:
-        pulsePin(LED4, 500, True)
-    else:
-        writePin(LED4, False)
+
+
 
 def doEverySecond():
     """Tasks that are executed every second"""
-    showButtonCount()
+    z=0
+    #showButtonCount()
 
 @setHook(HOOK_100MS)
 def timer100msEvent(currentMs):
     """Hooked into the HOOK_100MS event"""
-    global secondCounter
-    global buttonState,buttonTime,buttonCount
+    #global flexSensor
+    
+    # Read in the Analog values from the Sensors
 
-    secondCounter += 1
-    if secondCounter >= 10:
-        doEverySecond()
-        secondCounter = 0
+    # read 8 sensor values
+    sens =  str(readAdc(flexSensor[0])) + str(readAdc(flexSensor[1]))+str(readAdc(flexSensor[2]))
+    #sens +=  str(i) + ':' + str(readAdc(flexSensor[i])) + '.'
+        
+       
+    inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
+    print "sens  = % s"   % sens
+    rpc(serverAddr, "logEvent", inpstr , 100)    # Send package to server, Invoke Log event Function on the server  
+    sendData()
 
+def sendData():
+    global inpstr 
+    hello ="hello from straignt" 
+    mcastRpc(1,5,"logEvent",hello)
+    
+    
     # Use a LONG (> 1 second) button press as a "counter reset"
-    if buttonState == False:
+"""#if buttonState == False:
         if buttonCount > 0:
             if currentMs - buttonTime >= 1000:
                 buttonCount = 0
-                reportButtonCount()
+                reportButtonCount()"""
 
 def setButtonCount(newCount):
     """Set the new button count"""
     global buttonCount
     buttonCount = newCount
-    showButtonCount()
+    #showButtonCount()
 
 def reportButtonCount():
     """Report to others that button press took place"""
     global buttonCount
-    showButtonCount()
+    #showButtonCount()
     mcastRpc(1,2,'setButtonCount',buttonCount)

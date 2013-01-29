@@ -21,7 +21,16 @@ Include Files (Libs)
 serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
 
 # Sensor connection PINs on board.
-flexSensor = (8,9,10,11,12,13,14,15)         #creating a table os strings.
+
+ADC_0 = 8
+ADC_1 = 9 
+ADC_2 = 10
+ADC_3 = 11
+ADC_4 = 12 
+ADC_5 = 13
+ADC_6 = 14
+ADC_7 = 15 
+ 
 
 # Device address bits, 3 bits in total from DIP switch
 
@@ -73,14 +82,20 @@ def setRange(newRange):
 # Do every 10 MS    
 @setHook(HOOK_10MS)
 def timer10msEvent(currentMs):
-    global flexSensor12
+    global sens
     
     # Read in the Analog values from the Sensors
     i=0
     
-    while i<9:                                                    # read 8 sensor values
-        sens +=  str(i) + ':' + str(readAdc(flexSensor[i])) + '.'
-        i=i+1
+    # read 8 sensor values
+    
+    
+    temp = readAdc(ADC_0)
+    temp2 =str(temp)
+    sens =  str(i) + ':' +'1'+ temp2  #+ '.'+'2'+ str(readAdc(ADC_1)) 
+    """+ '.'+'2'+ str(readAdc(ADC_2))"""  
+    """ + '.'+'2'+ str(readAdc(ADC_3)) + '.'+'2'+ str(readAdc(ADC_4)) + '.'+'2'+ str(readAdc(ADC_5)) + '.'+'2'+ str(readAdc(ADC_6)) + '.'+'2'+ str(readAdc(ADC_7))"""
+      
        
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
     print "sens  = % s"   % sens
@@ -90,7 +105,7 @@ def timer10msEvent(currentMs):
 def sendData():
     global inpstr 
     hello ="hello from straignt" 
-    mcastRpc(1,5,"logEvent",hello)
+    mcastRpc(1,5,"logEvent",sens)
     
     
 @setHook(HOOK_GPIN)
