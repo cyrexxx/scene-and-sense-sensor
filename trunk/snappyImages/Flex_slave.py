@@ -80,21 +80,18 @@ def setRange(newRange):
     requiredrange = newRange
     
 # Do every 10 MS    
-@setHook(HOOK_10MS)
-def timer10msEvent(currentMs):
+@setHook(HOOK_1S)
+def timer1SEvent(currentMs):
     global sens
     
     # Read in the Analog values from the Sensors
     i=0
     
     # read 8 sensor values
-    
-    
-    temp = readAdc(ADC_0)
-    temp2 =str(temp)
-    sens =  str(i) + ':' +'1'+ temp2  #+ '.'+'2'+ str(readAdc(ADC_1)) 
-    """+ '.'+'2'+ str(readAdc(ADC_2))"""  
-    """ + '.'+'2'+ str(readAdc(ADC_3)) + '.'+'2'+ str(readAdc(ADC_4)) + '.'+'2'+ str(readAdc(ADC_5)) + '.'+'2'+ str(readAdc(ADC_6)) + '.'+'2'+ str(readAdc(ADC_7))"""
+        
+    """ temp = readAdc(ADC_0)
+    temp2 =str(temp)"""
+    sens =  str(i) + ':' +'1'+'#' + str(readAdc(ADC_0))  + '.'+'2'+'#' +  str(readAdc(ADC_1))+ '.' + '3'+'#' + str(readAdc(ADC_2)) + '.'+'4'+ '#' +  str(readAdc(ADC_3)) + '.'+'5'+ '#' +  str(readAdc(ADC_4)) + '.'+'2'+ str(readAdc(ADC_5)) + '.'+'2'+ str(readAdc(ADC_6)) + '.'+'2'+ str(readAdc(ADC_7))
       
        
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
