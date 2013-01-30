@@ -17,9 +17,13 @@ Include Files (Libs)
 #from synapse.evalBase import *
 #from synapse.nvparams import *
 #from string import *
+from synapse.platforms import *
 
 serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
-
+# check if compiled for SM700 
+if platform != "SM700":
+    compileError #script only valid on SM700
+    
 # Sensor connection PINs on board.
 
 ADC_0 = 8
@@ -30,6 +34,8 @@ ADC_4 = 12
 ADC_5 = 13
 ADC_6 = 14
 ADC_7 = 15 
+scount =0 
+acount =0
  
 
 # Device address bits, 3 bits in total from DIP switch
@@ -85,8 +91,20 @@ def timer1SEvent(currentMs):
     global sens
     
     # Read in the Analog values from the Sensors
+<<<<<<< .mine
+    
+    rpc(serverAddr, "logEvent", inpstr , 100)
+    
+=======
+>>>>>>> .r23
+<<<<<<< .mine
+    
+    #sens =  ':' +'1'+'#' + str(readAdc(ADC_0))  + '.'+'2'+'#' +  str(readAdc(ADC_1))+ '.' + '3'+'#' + str(readAdc(ADC_2)) + '.'+'4'+ '#' +  str(readAdc(ADC_3)) + '.'+'5'+ '#' +  str(readAdc(ADC_4)) + '.'+'6'+'#'+ str(readAdc(ADC_5)) + '.'+'7'+'#'+ str(readAdc(ADC_6)) + '.'+'8'+'#'+ str(readAdc(ADC_7))
+    sens =   '1.'+ sadc0 + '#2.'+  sadc1+ '#3.'+ sadc2 +'#4.'+  sadc3 + '#5.'+ sadc4 + '#6.'+sadc5 + '#7.'+ sadc6 + '#8.'+ sadc7
+=======
     # read 8 sensor values
     sens =  ':' +'1'+'#' + str(readAdc(ADC_0))  + '.'+'2'+'#' +  str(readAdc(ADC_1))+ '.' + '3'+'#' + str(readAdc(ADC_2)) + '.'+'4'+ '#' +  str(readAdc(ADC_3)) + '.'+'5'+ '#' +  str(readAdc(ADC_4)) + '.'+'2'+ str(readAdc(ADC_5)) + '.'+'2'+ str(readAdc(ADC_6)) + '.'+'2'+ str(readAdc(ADC_7))
+>>>>>>> .r23
        
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
     print "sens  = % s"   % sens
@@ -98,6 +116,52 @@ def sendData():
     hello ="hello from straignt" 
     mcastRpc(1,5,"logEvent",sens)
     
+   
+   
+@setHook(HOOK_1MS)
+def timer1MSEvent(currentMs): 
+    global radc0, radc1, radc2, radc3, radc4, radc5, radc6, radc7
+    global acount 
+    
+    if acount==0:
+        radc0= readAdc(ADC_0)
+    elif acount ==1:
+        radc1= readAdc(ADC_1)
+    elif acount ==2:
+        radc2= readAdc(ADC_2)
+    elif acount ==3:
+        radc3= readAdc(ADC_3)
+    elif acount ==4:
+        radc4= readAdc(ADC_4)
+    elif acount ==5:
+        radc5= readAdc(ADC_5)
+    elif acount ==6:
+        radc6= readAdc(ADC_6)
+    elif acount ==7:
+        radc7= readAdc(ADC_7)
+        acount =-1
+    
+    acount+=1
+    
+@setHook(HOOK_10MS)
+def timer10MSEvent(currentMs):
+    global sadc0, sadc1, sadc2, sadc3, sadc4, sadc5, sadc6,sadc7
+    global scount
+    # read 8 sensor values
+    
+    
+    scount+=1
+    
+    if scount == 5 :
+       sadc0= str(radc0)
+       sadc1= str(radc1)
+       sadc2= str(radc2)
+       sadc3= str(radc3)
+       sadc4= str(radc4)
+       sadc5= str(radc5)
+       sadc6= str(radc6)
+       sadc7= str(radc7)
+       scount = 0
     
 @setHook(HOOK_GPIN)
 def buttonEvent(pinNum, isSet):    
