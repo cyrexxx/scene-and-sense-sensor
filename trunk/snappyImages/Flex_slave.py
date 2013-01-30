@@ -85,11 +85,8 @@ def timer1SEvent(currentMs):
     global sens
     
     # Read in the Analog values from the Sensors
-    
-    
     # read 8 sensor values
     sens =  ':' +'1'+'#' + str(readAdc(ADC_0))  + '.'+'2'+'#' +  str(readAdc(ADC_1))+ '.' + '3'+'#' + str(readAdc(ADC_2)) + '.'+'4'+ '#' +  str(readAdc(ADC_3)) + '.'+'5'+ '#' +  str(readAdc(ADC_4)) + '.'+'2'+ str(readAdc(ADC_5)) + '.'+'2'+ str(readAdc(ADC_6)) + '.'+'2'+ str(readAdc(ADC_7))
-      
        
     inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
     print "sens  = % s"   % sens
