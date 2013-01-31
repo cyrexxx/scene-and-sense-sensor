@@ -20,16 +20,11 @@ Include Files (Libs)
 
 serverAddr = '\x00\x00\x01' # hard-coded address for Portal PC
 
+#if platform != "SM700":
+ #   compileError #script only valid on SM700
+
 # Sensor connection PINs on board.
-"""
-ADC_0 = 8
-ADC_1 = 9 
-ADC_2 = 10
-ADC_3 = 11
-ADC_4 = 12 
-ADC_5 = 13
-ADC_6 = 14
-ADC_7 = 15""" 
+
  
 
 # Device address bits, 3 bits in total from DIP switch
@@ -87,7 +82,7 @@ def timer10MSEvent(currentMs):
     
     # Read in the Analog values from the Sensors
     # read 8 sensor values
-    sens =  ':1#' + str(readAdc(ADC_0))  + '.2#' +  str(readAdc(ADC_1)) + '.3#' + str(readAdc(ADC_2)) + '.4#' +  str(readAdc(ADC_3)) + '.5#' +  str(readAdc(ADC_4)) + '.6#'+ str(readAdc(ADC_5)) + '.7#'+ str(readAdc(ADC_6)) + '.8#'+ str(readAdc(ADC_7))
+    sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)
     
     """sadc = str(ADC_0)
     sadc = str(ADC_1)
@@ -104,35 +99,37 @@ def timer10MSEvent(currentMs):
     
     
     
-    sendData()
+    sendData(inpstr)
     
-def sendData():
+def sendData(mdata):
     global inpstr 
      
-    mcastRpc(1,5,"logEvent",inpstr)
+    mcastRpc(1,5,"logEvent",mdata)
     
     
 @setHook(HOOK_1MS)
 def timer1MSEvent(currentMs):
     global ADC_0,ADC_1,ADC_2,ADC_3,ADC_4,ADC_5,ADC_6,ADC_7
     global acount 
+    
+    
     if acount == 0:
-        ADC_0 = readAdc(30)   #ADC 0
+        ADC_0 = readAdc(9)   #ADC 0
     elif acount == 1:
-        ADC_1 = readAdc(31)   #ADC 1
+        ADC_1 = readAdc(10)   #ADC 1
     elif acount == 2:
-        ADC_2 = readAdc(32)   #ADC 2
+        ADC_2 = readAdc(11)   #ADC 2
     elif acount == 3:
-        ADC_3 = readAdc(33)   #ADC 3
+        ADC_3 = readAdc(12)   #ADC 3
     elif acount == 4:
-        ADC_4 = readAdc(34)   #ADC 4
+        ADC_4 = readAdc(13)   #ADC 4
     elif acount == 5:
-        ADC_5 = readAdc(35)   #ADC 5
+        ADC_5 = readAdc(14)   #ADC 5
     elif acount == 6:
-        ADC_6 = readAdc(36)   #ADC 6
+        ADC_6 = readAdc(15)   #ADC 6
     elif acount == 7:
-        ADC_7 = readAdc(37)   #ADC 7
-        acount =-1
+        ADC_7 = readAdc(16)   #ADC 7
+        acount =-1    
     
     acount+=1
         
