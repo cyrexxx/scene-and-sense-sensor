@@ -26,7 +26,7 @@ from switchboard import *
 numHops = 4
 
 secondCounter = 0
-
+@setHook(HOOK_STARTUP)
 def startup():
     # Initialize UART
     initUart(1, 9600)           # 9600 baud
@@ -42,7 +42,8 @@ def startup():
 def announceMaster():
     """Broadcast master status.  This allows slaves to learn our address, so they can unicast back."""
     mcastRpc(1, numHops, 'master')
-    
+
+@setHook(HOOK_100MS)    
 def poll100ms(mstick):
     global secondCounter
     
@@ -51,6 +52,3 @@ def poll100ms(mstick):
     if secondCounter >= 10:
         announceMaster()
         secondCounter = 0
-
-snappyGen.setHook(SnapConstants.HOOK_STARTUP, startup)
-snappyGen.setHook(SnapConstants.HOOK_100MS, poll100ms)
