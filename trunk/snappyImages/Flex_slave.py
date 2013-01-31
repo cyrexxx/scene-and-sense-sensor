@@ -14,7 +14,7 @@ Include Files (Libs)
 *****************************************************************************/"""
 
 #Lib
-#from synapse.evalBase import *
+
 #from synapse.nvparams import *
 #from string import *
 
@@ -34,9 +34,9 @@ ADC_7 = 15"""
 
 # Device address bits, 3 bits in total from DIP switch
 
-addrBit0 = 57
-addrBit1 = 56
-addrBit2 = 55
+addrBit0 = 52
+addrBit1 = 48
+addrBit2 = 46
 
 def makeInput(pin):
     setPinDir(pin, False)   # set direction of the pin as output
@@ -83,31 +83,33 @@ def setRange(newRange):
 # Do every 10 MS    
 @setHook(HOOK_10MS)
 def timer10MSEvent(currentMs):
-    global sens
+    global sens,inpstr
     
     # Read in the Analog values from the Sensors
     # read 8 sensor values
-    #sens =  ':' +'1'+'#' + str(readAdc(ADC_0))  + '.'+'2'+'#' +  str(readAdc(ADC_1))+ '.' + '3'+'#' + str(readAdc(ADC_2)) + '.'+'4'+ '#' +  str(readAdc(ADC_3)) + '.'+'5'+ '#' +  str(readAdc(ADC_4)) + '.'+'2'+ str(readAdc(ADC_5)) + '.'+'2'+ str(readAdc(ADC_6)) + '.'+'2'+ str(readAdc(ADC_7))
-    sadc = str(ADC_0)
-    sadc = str(ADC_0)
-    sadc = str(ADC_0)
-    sadc = str(ADC_0)
-    sadc = str(ADC_0)
-    sadc = str(ADC_0)
-    sadc = str(ADC_0)
-    sadc = str(ADC_0)
+    sens =  ':1#' + str(readAdc(ADC_0))  + '.2#' +  str(readAdc(ADC_1))+ '.3#' + str(readAdc(ADC_2)) + '.4#' +  str(readAdc(ADC_3)) + '.5#' +  str(readAdc(ADC_4)) + '.6#'+ str(readAdc(ADC_5)) + '.7#'+ str(readAdc(ADC_6)) + '.8#'+ str(readAdc(ADC_7))
+    
+    """sadc = str(ADC_0)
+    sadc = str(ADC_1)
+    sadc = str(ADC_2)
+    sadc = str(ADC_3)
+    sadc = str(ADC_4)
+    sadc = str(ADC_5)
+    sadc = str(ADC_6)
+    sadc = str(ADC_7)"""
     
     
-    sens=str(ADC_1)
-    #inpstr = str(addreBits) + '#' + sens    # package the Values in to one msg
-    #print "sens  = % s"   % sens
-    #rpc(serverAddr, "logEvent", inpstr , 100)    # Send package to server, Invoke Log event Function on the server  
+    
+    inpstr= str(addreBits) + sens    # package the Values in to one msg
+    
+    
+    
     sendData()
     
 def sendData():
     global inpstr 
-    hello ="hello from straignt" 
-    mcastRpc(1,5,"logEvent",sens)
+     
+    mcastRpc(1,5,"logEvent",but)
     
     
 @setHook(HOOK_1MS)
@@ -142,8 +144,11 @@ def buttonEvent(pinNum, isSet):
      if pinNum == (addrBit0 or addrBit1 or addrBit2):
         addreBits = buttonRead()
     
-def buttonRead():    
-    return int(str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2)), 2)
+def buttonRead():
+    global but
+    but = str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2))
+    #mcastRpc(1,5,"logEvent",but)
+    return but
 
 @setHook(HOOK_RPC_SENT) #This is hooked into the HOOK_RPC_SENT event that is called after every RPC
 def rpcSentEvent():
