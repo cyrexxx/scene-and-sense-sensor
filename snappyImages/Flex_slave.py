@@ -93,17 +93,11 @@ def timer10MSEvent(currentMs):
     sadc = str(ADC_6)
     sadc = str(ADC_7)"""
     
-    
-    
     inpstr= str(addreBits) + sens    # package the Values in to one msg
-    
-    
-    
     sendData(inpstr)
     
 def sendData(mdata):
     global inpstr 
-     
     mcastRpc(1,5,"logEvent",mdata)
     
     
@@ -112,7 +106,7 @@ def timer1MSEvent(currentMs):
     global ADC_0,ADC_1,ADC_2,ADC_3,ADC_4,ADC_5,ADC_6,ADC_7
     global acount 
     
-    
+    # Using Vref=1.6 V
     if acount == 0:
         ADC_0 = readAdc(9)   #ADC 0
     elif acount == 1:
@@ -132,7 +126,7 @@ def timer1MSEvent(currentMs):
         acount =-1    
     
     acount+=1
-        
+       
     
 @setHook(HOOK_GPIN)
 def buttonEvent(pinNum, isSet):    
@@ -144,9 +138,9 @@ def buttonEvent(pinNum, isSet):
 def buttonRead():
     return ((4*(readPin(addrBit0))) +(2*(readPin(addrBit1)))+(1*(readPin(addrBit2))))
     
-
+"""
 @setHook(HOOK_RPC_SENT) #This is hooked into the HOOK_RPC_SENT event that is called after every RPC
 def rpcSentEvent():
-    k=2
+    k=2"""
     
     
