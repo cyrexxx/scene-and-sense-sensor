@@ -34,13 +34,13 @@ ADC_7 = 15"""
 
 # Device address bits, 3 bits in total from DIP switch
 
-addrBit0 = 52
-addrBit1 = 48
-addrBit2 = 46
+addrBit0 = 10
+addrBit1 = 9
+addrBit2 = 27
 
 def makeInput(pin):
     setPinDir(pin, False)   # set direction of the pin as output
-    setPinPullup(pin, True) # Power the pin for the Photocell
+    #setPinPulldown(pin, True) # Power the pin for the Photocell
     monitorPin(pin, True)   # Monitor for button press
     
 # Things to do at startup
@@ -87,7 +87,7 @@ def timer10MSEvent(currentMs):
     
     # Read in the Analog values from the Sensors
     # read 8 sensor values
-    sens =  ':1#' + str(readAdc(ADC_0))  + '.2#' +  str(readAdc(ADC_1))+ '.3#' + str(readAdc(ADC_2)) + '.4#' +  str(readAdc(ADC_3)) + '.5#' +  str(readAdc(ADC_4)) + '.6#'+ str(readAdc(ADC_5)) + '.7#'+ str(readAdc(ADC_6)) + '.8#'+ str(readAdc(ADC_7))
+    sens =  ':1#' + str(readAdc(ADC_0))  + '.2#' +  str(readAdc(ADC_1)) + '.3#' + str(readAdc(ADC_2)) + '.4#' +  str(readAdc(ADC_3)) + '.5#' +  str(readAdc(ADC_4)) + '.6#'+ str(readAdc(ADC_5)) + '.7#'+ str(readAdc(ADC_6)) + '.8#'+ str(readAdc(ADC_7))
     
     """sadc = str(ADC_0)
     sadc = str(ADC_1)
@@ -109,7 +109,7 @@ def timer10MSEvent(currentMs):
 def sendData():
     global inpstr 
      
-    mcastRpc(1,5,"logEvent",but)
+    mcastRpc(1,5,"logEvent",inpstr)
     
     
 @setHook(HOOK_1MS)
@@ -145,13 +145,11 @@ def buttonEvent(pinNum, isSet):
         addreBits = buttonRead()
     
 def buttonRead():
-    global but
-    but = str(readPin(addrBit0))+str(readPin(addrBit1))+str(readPin(addrBit2))
-    #mcastRpc(1,5,"logEvent",but)
-    return but
+    return ((4*(readPin(addrBit0))) +(2*(readPin(addrBit1)))+(1*(readPin(addrBit2))))
+    
 
 @setHook(HOOK_RPC_SENT) #This is hooked into the HOOK_RPC_SENT event that is called after every RPC
 def rpcSentEvent():
     k=2
-    #sendData()
+    
     
