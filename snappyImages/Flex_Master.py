@@ -40,7 +40,7 @@ def startup():
     # Enable bridge connections on the other UART
     crossConnect(DS_UART0, DS_PACKET_SERIAL)
     
-def findServer():
+def svrAddr():
     """Devices who WANT buzzer capability call this function"""
     rpc(rpcSourceAddr(), 'serverAt', localAddr())
     

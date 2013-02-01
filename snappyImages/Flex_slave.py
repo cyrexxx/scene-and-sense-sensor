@@ -42,7 +42,7 @@ def makeInput(pin):
 @setHook(HOOK_STARTUP)
 def startupEvent():
     global addreBits
-    #findServer() ##in once server is ready 
+    findServer() ##in once server is ready 
     global acount 
     acount = 0
     # Set PIN directions and initialize
@@ -62,8 +62,12 @@ def findServer():
     
 # A server is announced to th slae , save its address 
 def serverAt(addr):
-    global serverAddr
+    global serverAddr,addset
     serverAddr = addr[:]
+    addset='set'+str(serverAddr)
+    #sendData(addset)
+    mcastRpc(1,5,"logEvent",addset)
+    ucastSerial(rpcSourceAddr())
     
 def setThreshold(newThreshold):
     #Use this to change the 'darkness' threshold from the default of 85%
@@ -97,8 +101,9 @@ def timer10MSEvent(currentMs):
     sendData(inpstr)
     
 def sendData(mdata):
-    global inpstr 
-    mcastRpc(1,5,"logEvent",mdata)
+    #global inpstr 
+    rpc(serverAddr, "logEvent", mdata)
+    #mcastRpc(1,5,"logEvent",mdata)
     
     
 @setHook(HOOK_1MS)
