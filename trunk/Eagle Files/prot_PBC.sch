@@ -5089,8 +5089,8 @@ RJ45 Jack connectors&lt;br&gt;
 <instance part="R9" gate="G$1" x="101.6" y="35.56" rot="R180"/>
 <instance part="LED1" gate="G$1" x="88.9" y="35.56" rot="R90"/>
 <instance part="J1" gate="G$1" x="104.14" y="60.96"/>
-<instance part="S2" gate="G$1" x="76.2" y="35.56" rot="R270"/>
-<instance part="BATT" gate="G$1" x="60.96" y="53.34"/>
+<instance part="S2" gate="G$1" x="60.96" y="43.18"/>
+<instance part="BATT" gate="G$1" x="60.96" y="55.88"/>
 <instance part="BOARD" gate="G$1" x="43.18" y="40.64"/>
 <instance part="J2" gate="G$1" x="66.04" y="66.04" rot="R180"/>
 </instances>
@@ -5205,9 +5205,8 @@ RJ45 Jack connectors&lt;br&gt;
 </segment>
 <segment>
 <pinref part="BATT" gate="G$1" pin="2"/>
-<wire x1="63.5" y1="50.8" x2="63.5" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="63.5" y1="48.26" x2="68.58" y2="48.26" width="0.1524" layer="91"/>
-<label x="68.58" y="48.26" size="1.778" layer="95"/>
+<wire x1="63.5" y1="53.34" x2="68.58" y2="50.8" width="0.1524" layer="91"/>
+<label x="68.58" y="50.8" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ADC_1" class="0">
@@ -5279,23 +5278,22 @@ RJ45 Jack connectors&lt;br&gt;
 <pinref part="J1" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="N$2" class="0">
-<segment>
-<pinref part="S2" gate="G$1" pin="2"/>
-<pinref part="LED1" gate="G$1" pin="A"/>
-<wire x1="83.82" y1="35.56" x2="86.36" y2="35.56" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="VCC1" class="0">
 <segment>
-<pinref part="S2" gate="G$1" pin="1"/>
-<pinref part="BATT" gate="G$1" pin="1"/>
-<wire x1="60.96" y1="50.8" x2="60.96" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="60.96" y1="35.56" x2="68.58" y2="35.56" width="0.1524" layer="91"/>
 <label x="63.5" y="40.64" size="1.778" layer="95"/>
 <pinref part="BOARD" gate="G$1" pin="2"/>
 <wire x1="45.72" y1="38.1" x2="45.72" y2="35.56" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="35.56" x2="60.96" y2="35.56" width="0.1524" layer="91"/>
+<pinref part="S2" gate="G$1" pin="1"/>
+<pinref part="LED1" gate="G$1" pin="A"/>
+<wire x1="86.36" y1="35.56" x2="60.96" y2="35.56" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="BATT" gate="G$1" pin="1"/>
+<pinref part="S2" gate="G$1" pin="2"/>
+<wire x1="60.96" y1="53.34" x2="60.96" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
