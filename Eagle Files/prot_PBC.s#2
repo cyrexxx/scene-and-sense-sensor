@@ -5059,6 +5059,7 @@ RJ45 Jack connectors&lt;br&gt;
 <part name="S2" library="switch-dil" deviceset="DS01" device=""/>
 <part name="BATT" library="con-amp" deviceset="MTA02-156" device=""/>
 <part name="BOARD" library="con-amp" deviceset="MTA02-156" device=""/>
+<part name="J2" library="jumper" deviceset="J2" device="X2MM"/>
 </parts>
 <sheets>
 <sheet>
@@ -5091,6 +5092,7 @@ RJ45 Jack connectors&lt;br&gt;
 <instance part="S2" gate="G$1" x="76.2" y="35.56" rot="R270"/>
 <instance part="BATT" gate="G$1" x="60.96" y="53.34"/>
 <instance part="BOARD" gate="G$1" x="43.18" y="40.64"/>
+<instance part="J2" gate="G$1" x="66.04" y="66.04" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -5242,22 +5244,25 @@ RJ45 Jack connectors&lt;br&gt;
 <net name="ADD_0" class="0">
 <segment>
 <pinref part="S1" gate="G$1" pin="1"/>
-<wire x1="83.82" y1="68.58" x2="78.74" y2="68.58" width="0.1524" layer="91"/>
 <label x="76.2" y="68.58" size="1.778" layer="95"/>
+<pinref part="J2" gate="G$1" pin="3"/>
+<wire x1="83.82" y1="68.58" x2="68.58" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADD_1" class="0">
 <segment>
 <pinref part="S1" gate="G$1" pin="2"/>
-<wire x1="83.82" y1="66.04" x2="78.74" y2="66.04" width="0.1524" layer="91"/>
 <label x="76.2" y="66.04" size="1.778" layer="95"/>
+<pinref part="J2" gate="G$1" pin="2"/>
+<wire x1="83.82" y1="66.04" x2="68.58" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ADD_2" class="0">
 <segment>
 <pinref part="S1" gate="G$1" pin="3"/>
-<wire x1="83.82" y1="63.5" x2="78.74" y2="63.5" width="0.1524" layer="91"/>
 <label x="76.2" y="63.5" size="1.778" layer="95"/>
+<pinref part="J2" gate="G$1" pin="1"/>
+<wire x1="83.82" y1="63.5" x2="68.58" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">
