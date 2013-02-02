@@ -19,11 +19,15 @@ Include Files (Libs)
    Load this script into the MASTER device.  It will broadcast serial data to the SLAVE devices,
    and periodically announce its MASTER status to all.
 """
-
+from synapse.platforms import *
 from switchboard import *
 
 # Maximum number of hops allowed for multicast forwarding
 numHops = 4
+
+if platform != "RF266":
+    compileError #script only valid on RF266
+
 
 secondCounter = 0
 @setHook(HOOK_STARTUP)
@@ -36,9 +40,7 @@ def startup():
     # Connect UART to transparent data endpoint.
     #   The default transparent configuration is broadcast
     crossConnect(DS_STDIO, DS_TRANSPARENT)
-    test = 'testing_serial_data'
-    echo(test)
-
+    
     # Enable bridge connections on the other UART
     #crossConnect(DS_UART0, DS_PACKET_SERIAL)
 def echo(obj):
@@ -50,7 +52,7 @@ def printData(senstr):
      portaladd = '\x00\x00\x01'
      mst='master '+strflexdat
      rpc(portaladd,"logEvent",mst)
-     #print " " 
+     
 
 def svrAddr():
     """Devices who WANT buzzer capability call this function"""
@@ -58,7 +60,6 @@ def svrAddr():
     
 def announceMaster():
     """Broadcast master status.  This allows slaves to learn our address, so they can unicast back."""
-    #mcastRpc(1, numHops, 'master')
     mcastRpc(1, numHops, 'serverAt',localAddr())
 
 @setHook(HOOK_1S)    
