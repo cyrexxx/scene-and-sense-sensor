@@ -87,7 +87,7 @@ def timer10MSEvent(currentMs):
     sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
   
     # formating  Slave_address + sens (:sensor_number#ADC_value. .......)
-    inpstr= str(addreBits) + sens    # package the Values in to one msg
+    inpstr= '$'+str(addreBits) + sens    # package the Values in to one msg
     sendData(inpstr)                     #call function to broadcast data
     
 #fuct to broadcast received data to portal or master     
