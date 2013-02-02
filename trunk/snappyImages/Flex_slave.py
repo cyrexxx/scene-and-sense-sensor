@@ -63,13 +63,13 @@ def findServer():
 # A server is announced to th slae , save its address 
 def serverAt(addr):
     global serverAddr,addset
-    #serverAddr = addr[:]
-    serverAddr ="/x5E/x2D/x1D"
-    addset='set'+str(serverAddr)
+    serverAddr = addr[:]
+    #serverAddr ="/x5E/x34/xAD"
+    addset='set '+str(serverAddr)
     #sendData(addset)
     mcastRpc(1,5,"logEvent",addset)
-    rpc(serverAddr,'echo','test')
-    ucastSerial(rpcSourceAddr())
+    #rpc(serverAddr,'echo','test')
+    #ucastSerial(rpcSourceAddr())
     
     
 def setThreshold(newThreshold):
@@ -89,7 +89,7 @@ def timer10MSEvent(currentMs):
     
     # Read in the Analog values from the Sensors
     # read 8 sensor values
-    sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)
+    sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
     
     """sadc = str(ADC_0)
     sadc = str(ADC_1)
@@ -104,9 +104,11 @@ def timer10MSEvent(currentMs):
     sendData(inpstr)
     
 def sendData(mdata):
-    #global inpstr 
-    #rpc(serverAddr, "logEvent", mdata)
-    mcastRpc(1,5,"logEvent",mdata)
+    if serverAddr == '\x00\x00\x01':
+       rpc(serverAddr,"logEvent",mdata)
+    else:
+       rpc(serverAddr, "printData", mdata)
+       #mcastRpc(1,5,"logEvent",mdata)
     
     
 @setHook(HOOK_1MS)

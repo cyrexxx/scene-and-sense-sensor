@@ -50,7 +50,7 @@ def startupEvent():
     
     #findServer() ##in once server is ready 
      
-    
+    print "starting"
     # Set PIN directions and initialize
     makeInput(addrBit0)
     makeInput(addrBit1)
