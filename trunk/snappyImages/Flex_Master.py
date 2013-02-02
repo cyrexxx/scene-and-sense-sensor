@@ -38,7 +38,7 @@ secondCounter = 0
 def startup():
 
     # Initialize UART
-    initUart(1, 38400)           # 9600 baud
+    initUart(1, 1)           # 9600 baud
     flowControl(1, False)       # No flow control
 
     # Connect UART to transparent data endpoint.
