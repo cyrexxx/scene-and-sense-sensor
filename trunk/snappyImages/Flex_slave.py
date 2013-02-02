@@ -85,7 +85,7 @@ def timer10MSEvent(currentMs):
     
     # Read in the 8 sensor analog values from the Sensors
     # formating :sensor_number#ADC_value. .......
-    sens =  ',1,' + str(ADC_0)  + ',2,' +  str(ADC_1) + ',3,' + str(ADC_2) + '4,' +  str(ADC_3) + ',5,' +  str(ADC_4) + ',6,'+ str(ADC_5) + ',7,'+ str(ADC_6) + ',8,'+ str(ADC_7)+','
+    sens =  ',1,' + str(ADC_0)  + ',2,' +  str(ADC_1) + ',3,' + str(ADC_2) + ',4,' +  str(ADC_3) + ',5,' +  str(ADC_4) + ',6,'+ str(ADC_5) + ',7,'+ str(ADC_6) + ',8,'+ str(ADC_7)+','
     #sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
   
     # formating  Slave_address + sens (:sensor_number#ADC_value. .......)
