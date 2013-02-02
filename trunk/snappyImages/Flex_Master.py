@@ -35,10 +35,12 @@ def startup():
 
     # Connect UART to transparent data endpoint.
     #   The default transparent configuration is broadcast
-    crossConnect(DS_UART1, DS_TRANSPARENT)
+    crossConnect(DS_STDIO, DS_TRANSPARENT)
     
     # Enable bridge connections on the other UART
-    crossConnect(DS_UART0, DS_PACKET_SERIAL)
+    #crossConnect(DS_UART0, DS_PACKET_SERIAL)
+def echo(obj):
+    print str(obj)
     
 def svrAddr():
     """Devices who WANT buzzer capability call this function"""

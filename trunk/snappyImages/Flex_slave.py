@@ -63,11 +63,14 @@ def findServer():
 # A server is announced to th slae , save its address 
 def serverAt(addr):
     global serverAddr,addset
-    serverAddr = addr[:]
+    #serverAddr = addr[:]
+    serverAddr ="/x5E/x2D/x1D"
     addset='set'+str(serverAddr)
     #sendData(addset)
     mcastRpc(1,5,"logEvent",addset)
+    rpc(serverAddr,'echo','test')
     ucastSerial(rpcSourceAddr())
+    
     
 def setThreshold(newThreshold):
     #Use this to change the 'darkness' threshold from the default of 85%
@@ -102,8 +105,8 @@ def timer10MSEvent(currentMs):
     
 def sendData(mdata):
     #global inpstr 
-    rpc(serverAddr, "logEvent", mdata)
-    #mcastRpc(1,5,"logEvent",mdata)
+    #rpc(serverAddr, "logEvent", mdata)
+    mcastRpc(1,5,"logEvent",mdata)
     
     
 @setHook(HOOK_1MS)
