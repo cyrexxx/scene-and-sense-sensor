@@ -36,12 +36,22 @@ def startup():
     # Connect UART to transparent data endpoint.
     #   The default transparent configuration is broadcast
     crossConnect(DS_STDIO, DS_TRANSPARENT)
-    
+    test = 'testing_serial_data'
+    echo(test)
+
     # Enable bridge connections on the other UART
     #crossConnect(DS_UART0, DS_PACKET_SERIAL)
 def echo(obj):
     print str(obj)
     
+def printData(senstr):
+     strflexdat = str(senstr)
+     print strflexdat
+     portaladd = '\x00\x00\x01'
+     mst='master '+strflexdat
+     rpc(portaladd,"logEvent",mst)
+     #print " " 
+
 def svrAddr():
     """Devices who WANT buzzer capability call this function"""
     rpc(rpcSourceAddr(), 'serverAt', localAddr())
