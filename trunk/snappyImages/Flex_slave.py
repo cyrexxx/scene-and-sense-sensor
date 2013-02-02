@@ -64,8 +64,9 @@ def findServer():
 def serverAt(addr):
     global serverAddr,addset
     serverAddr = addr[:]
-    addset='set '+str(serverAddr)
+    addset='Add set ' + str(addreBits)
     mcastRpc(1,5,"logEvent",addset)
+    rpc(serverAddr , "slaveFound",addreBits)
     
 #def setThreshold(newThreshold):
     #Use this to change the  threshold from the default #Not used #future
@@ -84,10 +85,11 @@ def timer10MSEvent(currentMs):
     
     # Read in the 8 sensor analog values from the Sensors
     # formating :sensor_number#ADC_value. .......
-    sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
+    sens =  ',1,' + str(ADC_0)  + ',2,' +  str(ADC_1) + ',3,' + str(ADC_2) + '4,' +  str(ADC_3) + ',5,' +  str(ADC_4) + ',6,'+ str(ADC_5) + ',7,'+ str(ADC_6) + ',8,'+ str(ADC_7)+','
+    #sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
   
     # formating  Slave_address + sens (:sensor_number#ADC_value. .......)
-    inpstr= '$$$'+str(addreBits) + sens    # package the Values in to one msg
+    inpstr= '$'+str(addreBits) + sens    # package the Values in to one msg
     sendData(inpstr)                     #call function to broadcast data
     
 #fuct to broadcast received data to portal or master     
@@ -132,14 +134,16 @@ def buttonEvent(pinNum, isSet):
      global addreBits
      if pinNum == (addrBit0 or addrBit1 or addrBit2):
         addreBits = buttonRead()
-        addstr = 'Device_'+str(addreBits)
+        
     
     
 #convert address bits to intiger number 
 def buttonRead():
     add = ((4*(readPin(addrBit0))) +(2*(readPin(addrBit1)))+(1*(readPin(addrBit2))))
-    addstr = 'Device_'+str(add)
+    addstr = "Device_"+str(add)
+    #mcastRpc( 1,5,"logEvent",addstr)
     #insert code for changing device name
+    #saveNvParam(NV_DEVICE_NAME_ID, addstr)
     return add
     
 """
