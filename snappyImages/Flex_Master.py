@@ -38,7 +38,7 @@ secondCounter = 0
 def startup():
 
     # Initialize UART
-    initUart(1, 9600)           # 9600 baud
+    initUart(1, 38400)           # 9600 baud
     flowControl(1, False)       # No flow control
 
     # Connect UART to transparent data endpoint.
@@ -50,15 +50,15 @@ def startup():
     
 def echo(obj):
     print str(obj)
-  # function called by slaves for send data to serial port
   
+# function called by slaves for send data to serial port
 def printData(senstr):
      strflexdat = str(senstr)        # may not be needed check
      print strflexdat
      portaladd = '\x00\x00\x01'      # for debugging    
      mst='master '+strflexdat        # for debugging 
      rpc(portaladd,"logEvent",mst)   # for debugging
-     
+
 #Devices who WANT a Master call this function to fetch Master's address ,returns Master's address
 def svrAddr():
     rpc(rpcSourceAddr(), 'serverAt', localAddr())
@@ -66,6 +66,11 @@ def svrAddr():
 #Broadcast master status.  This allows slaves to learn our address, so they can unicast back.
 def announceMaster():
     mcastRpc(1, numHops, 'serverAt',localAddr())
+
+#keep track of slaves found
+def slaveFound():
+    k=0
+    
 
 @setHook(HOOK_1S)    
 def poll1ms(mstick):
