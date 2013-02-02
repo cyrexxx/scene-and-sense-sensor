@@ -87,7 +87,7 @@ def timer10MSEvent(currentMs):
     sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
   
     # formating  Slave_address + sens (:sensor_number#ADC_value. .......)
-    inpstr= '$'+str(addreBits) + sens    # package the Values in to one msg
+    inpstr= '$$$'+str(addreBits) + sens    # package the Values in to one msg
     sendData(inpstr)                     #call function to broadcast data
     
 #fuct to broadcast received data to portal or master     
@@ -132,11 +132,15 @@ def buttonEvent(pinNum, isSet):
      global addreBits
      if pinNum == (addrBit0 or addrBit1 or addrBit2):
         addreBits = buttonRead()
+        addstr = 'Device_'+str(addreBits)
     
     
 #convert address bits to intiger number 
 def buttonRead():
-    return ((4*(readPin(addrBit0))) +(2*(readPin(addrBit1)))+(1*(readPin(addrBit2))))
+    add = ((4*(readPin(addrBit0))) +(2*(readPin(addrBit1)))+(1*(readPin(addrBit2))))
+    addstr = 'Device_'+str(add)
+    #insert code for changing device name
+    return add
     
 """
 @setHook(HOOK_RPC_SENT) #This is hooked into the HOOK_RPC_SENT event that is called after every RPC
