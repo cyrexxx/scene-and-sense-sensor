@@ -5,6 +5,8 @@ File:     $Id: COM_MONITOR ,v 1.0 2013/02/02 13:00:18 Kartik Exp $
 Software:  Processing 1.5.1
 
 Description:
+    This Sketch listen to the Com port and parse the incoming data into an array
+    relevant information is retrieved from this data is and stored in Object.
     
 Include Files (Libs)
      processing.serial
@@ -64,7 +66,7 @@ for (int i = 0; i < list.length-1; i++)
     {
            p.sensVal[k] = int(list[i]);         //This is an object where we want to store the data of the 8 sensors. There tags
                                                   // are not important. So every second element is what we need, leaving the sensor no.
-           println(p.sensVal[k]);
+           //println(p.sensVal[k]);
            //println("i=");
            //println(i);
            k++;
