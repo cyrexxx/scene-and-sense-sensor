@@ -13,129 +13,39 @@ Include Files (Libs)
 ******************************************************************************/
 import oscP5.*;
 import netP5.*;
- 
+import processing.serial.*;
+
+Serial myPort;     
 OscP5 oscP5;
 NetAddress myRemoteLocation;
- 
-
-import processing.serial.*;
-Serial myPort;                                    // The serial port
-String inString;                                  // Input string from serial port
-int lf = 10;                                      // ASCII linefeed 
 String[] list;
-int flag;
-int count=0;
 
-//Class for sending the packet. 
-public class Packet{
-    public int devNo;
-   public int sensVal[]= new int[8];
-}
-
-Packet p = new Packet();
 void setup() {
-  size(400,400);
-   
-    println(Serial.list());                                             //Prints the available ports to chose from 
-    myPort = new Serial(this, Serial.list()[0], 115200);                // Selects the port number here
-    myPort.bufferUntil(lf); 
-  
-  // start oscP5, telling it to listen for incoming messages at port 12000 */
-  oscP5 = new OscP5(this,12000);
- 
-  // set the remote location to be the localhost on port 57120
-  myRemoteLocation = new NetAddress("127.0.0.1",57120);
-}
- 
-void draw()
-{
-  if( flag ==1) 
-  { 
-    count++;
-   //text("packets sent= " + count, 20,20*count); 
-  sendData();
-  flag =0;
-  }
+  oscP5 = new OscP5(this, 12000);
+  myRemoteLocation = new NetAddress("127.0.0.1", 57120);
+  println(Serial.list());
+  myPort = new Serial(this, Serial.list()[10], 115200);    
+  myPort.bufferUntil('\n'); 
 }
 
-void serialEvent(Serial ser) 
-{ int k=0;
-    
-    inString = ser.readString();
+//void draw() {}
 
-  // Splitting a String based on a multiple delimiters
+void serialEvent(Serial ser) {    
+    String inString = ser.readString();
     list = splitTokens(inString, "$,");
-    flag=0;
-    for (int i = 0; i < list.length-1; i++) 
-      { 
-        if(int(list[1])<8)            // The second element is the device address, a 1 bit integer number. In case address is more than 8 we ignore this packet as garbage.
-          {
-            if (i ==1)
-             {
-              p.devNo = int(list[1]);                     // This is where you get the device number and we are trying to store in an object.
-              //println(p.devNo);
-             } 
-            if (i>1)
-             {
-              if (i % 2 !=0) 
-               {
-                p.sensVal[k] = int(list[i]);         //This is an object where we want to store the data of the 8 sensors. There tags are not important. So every second element is what we need, leaving the sensor no.
-                //println(p.sensVal[k]);
-                //println("i=");
-                //println(i);
-                k++;
-               }    
-             }
-         }
-      }
-  // ----v--------v--------v--------v--------v--------v----
-
-flag=1; 
-//sendData();
- 
-  // ----^--------^--------^--------^--------^--------^----
+    OscMessage myMessage = new OscMessage("/data");
+    
+      myMessage.add(float(list[1])/3000.0);
+      myMessage.add(float(list[2])/3000.0);
+      myMessage.add(float(list[3])/3000.0);
+      myMessage.add(float(list[4])/3000.0);
+      myMessage.add(float(list[5])/3000.0);
+      myMessage.add(float(list[1])/3000.0);
+      myMessage.add(float(list[2])/3000.0);
+      myMessage.add(float(list[3])/3000.0);
+      for (int i = 1; i < list.length-1; i++) {
+      float val1 = float(list[i])/3000.0;
+      println("Value of i = "+ i +" " + val1);
+      }; 
+    oscP5.send(myMessage, myRemoteLocation);
 }
-
- void sendData()
-{
-//println("sent called");
-OscMessage myMessage = new OscMessage("/Data");
- 
-  myMessage.add(p.sensVal); // add an int to the osc message
-  myMessage.add(p.sensVal[1]); // add a float to the osc message 
-  myMessage.add(p.sensVal[2]); // add a string to the osc message
- 
-  // send the message
-  oscP5.send(myMessage, myRemoteLocation);
-  //oscP5.flush(myMessage, myRemoteLocation);
-
- 
-
-}
-
-/*
-void mousePressed() {  
-   create an osc message
- println("mouse press");
-  
-   
-}
- */
-
-void oscEvent(OscMessage theOscMessage) 
-{  
-  // get the first value as an integer
-  int firstValue = theOscMessage.get(0).intValue();
- 
-  // get the second value as a float  
-  int secondValue = theOscMessage.get(1).intValue();
- 
-  // get the third value as a string
-  int thirdValue = theOscMessage.get(2).intValue();
- 
-  // print out the message
-  print("OSC Message Recieved: ");
-  print(theOscMessage.addrPattern() + " ");
-  println(firstValue + " " + secondValue + " " + thirdValue);
-}
-
