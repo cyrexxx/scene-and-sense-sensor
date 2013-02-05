@@ -20,10 +20,10 @@ from synapse.platforms import *
 from synapse.nvparams import *
 #from string import *
 
-serverAddr = '\x00\x00\x01'  # hard-coded address for Portal (PC/MAC)
+serverAddr = '\x00\x00\x01'         # hard-coded address for Portal (PC/MAC)
 
 if platform != "SM700":
-    compileError        #script only valid on SM700
+    compileError                    #script only valid on SM700
 
 
 # Device address bits, 3 bits in total from DIP switch
@@ -33,8 +33,8 @@ addrBit1 = 9      #TMR1
 addrBit2 = 27     #TMR2
 
 def makeInput(pin):
-    setPinDir(pin, False)   # set direction of the pin as output
-    monitorPin(pin, True)   # Monitor for button press
+    setPinDir(pin, False)          # set direction of the pin as output
+    monitorPin(pin, True)          # Monitor for button press
   
     
 # Things to do at startup
@@ -44,16 +44,16 @@ def startupEvent():
     global acount 
     acount = 0
     
-    findServer() ##in once server is ready 
+    findServer()                   ##in once server is ready 
     
     # Set PIN directions and initialize
     
     makeInput(addrBit0)
     makeInput(addrBit1)
     makeInput(addrBit2)
-    setRate(1)             # set rate of polling for buttons 
+    setRate(1)                     # set rate of polling for buttons 
  
-    addreBits = buttonRead() #initialize buttons, get ADD bits 
+    addreBits = buttonRead()       #initialize buttons, get ADD bits 
     
        
 # Tries to find an active server
@@ -63,7 +63,7 @@ def findServer():
 # A server is announced to th slae , save its address 
 def serverAt(addr):
     global serverAddr,addset
-    serverAddr = addr[:]
+    #serverAddr = addr[:]
     addset='Add set ' + str(addreBits)
     mcastRpc(1,5,"logEvent",addset)
     rpc(serverAddr , "slaveFound",addreBits)
@@ -85,19 +85,23 @@ def timer10MSEvent(currentMs):
     
     # Read in the 8 sensor analog values from the Sensors
     # formating :sensor_number#ADC_value. .......
-    sens =  ',1,' + str(ADC_0)  + ',2,' +  str(ADC_1) + ',3,' + str(ADC_2) + ',4,' +  str(ADC_3) + ',5,' +  str(ADC_4) + ',6,'+ str(ADC_5) + ',7,'+ str(ADC_6) + ',8,'+ str(ADC_7)+','
+    
+    sens =  ',' + str(ADC_0)  + ',' +  str(ADC_1) + ',' + str(ADC_2) + ',' +  str(ADC_3) + ',' +  str(ADC_4) + ','+ str(ADC_5) + ','+ str(ADC_6) + ','+ str(ADC_7)+','
     #sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
   
     # formating  Slave_address + sens (:sensor_number#ADC_value. .......)
-    inpstr= '$'+str(addreBits) + sens    # package the Values in to one msg
-    sendData(inpstr)                     #call function to broadcast data
+    
+    inpstr= '$'+str(addreBits) + sens                  # package the Values in to one msg
+    sendData(inpstr)                                   #call function to broadcast data
     
 #fuct to broadcast received data to portal or master     
 def sendData(mdata):
-    if serverAddr == '\x00\x00\x01':      # if no Marste is found send Msg to portal 
-       rpc(serverAddr,"logEvent",mdata)
-    else:                                 # if master found send data only to master
-       rpc(serverAddr, "printData", mdata)
+    #if serverAddr == '\x00\x00\x01':      # if no Master is found send Msg to portal 
+    #   rpc(serverAddr,"logEvent",mdata)
+    #else:   
+    #mcastRpc(1,5,"printData", mdata)                            # if master found send data only to master
+    mcastRpc(1,5,"printData", mdata) 
+      # rpc(serverAddr, "printData", mdata)
   
 # Do every 1 MS  
 @setHook(HOOK_1MS)

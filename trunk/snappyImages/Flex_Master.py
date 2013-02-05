@@ -26,6 +26,7 @@ from switchboard import *
 
 # Maximum number of hops allowed for multicast forwarding
 numHops = 4
+serverAddr = '\x00\x00\x01'
 
 if platform != "RF200":
     compileError       #script only valid on RF266 /RF200
@@ -38,12 +39,13 @@ secondCounter = 0
 def startup():
 
     # Initialize UART
-    initUart(1, 1)           # 9600 baud
+    initUart(1, 9600)           # 9600 baud
     flowControl(1, False)       # No flow control
 
     # Connect UART to transparent data endpoint.
     #   The default transparent configuration is broadcast
-    crossConnect(DS_STDIO, DS_TRANSPARENT)
+    #crossConnect(DS_STDIO, DS_TRANSPARENT)
+    crossConnect(DS_STDIO, DS_UART1)
     # Enable bridge connections on the other UART
     #crossConnect(DS_UART0, DS_PACKET_SERIAL)
     
@@ -55,6 +57,7 @@ def echo(obj):
 def printData(senstr):
      strflexdat = str(senstr)        # may not be needed check
      print strflexdat
+     print "\n" 
      portaladd = '\x00\x00\x01'      # for debugging    
      mst='master '+strflexdat        # for debugging 
      rpc(portaladd,"logEvent",mst)   # for debugging
@@ -68,8 +71,9 @@ def announceMaster():
     mcastRpc(1, numHops, 'serverAt',localAddr())
 
 #keep track of slaves found
-def slaveFound():
-    k=0
+def slaveFound(saddres):
+    global slaves_connected
+    slaves_connected+=','+saddres
     
 
 @setHook(HOOK_1S)    
@@ -80,4 +84,5 @@ def poll1ms(mstick):
     secondCounter += 1
     if secondCounter >= 5:
         announceMaster()
+        rpc(serverAddr , "logEvent",slaves_connected)
         secondCounter = 0
