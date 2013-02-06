@@ -28,7 +28,7 @@ void setup() {
   myPort.bufferUntil('\n'); 
 }
 
-//void draw() {}
+void draw() {}
 
 void serialEvent(Serial ser) {    
     String inString = ser.readString();
@@ -40,9 +40,9 @@ void serialEvent(Serial ser) {
       myMessage.add(float(list[3])/3000.0);
       myMessage.add(float(list[4])/3000.0);
       myMessage.add(float(list[5])/3000.0);
-      myMessage.add(float(list[1])/3000.0);
-      myMessage.add(float(list[2])/3000.0);
-      myMessage.add(float(list[3])/3000.0);
+      myMessage.add(float(list[6])/3000.0);
+      myMessage.add(float(list[7])/3000.0);
+      myMessage.add(float(list[8])/3000.0);
       for (int i = 1; i < list.length-1; i++) {
       float val1 = float(list[i])/3000.0;
       println("Value of i = "+ i +" " + val1);
