@@ -116,10 +116,10 @@
 </layers>
 <board>
 <plain>
-<wire x1="1.27" y1="0" x2="64.75" y2="0" width="0" layer="20"/>
-<wire x1="64.75" y1="0" x2="63.48" y2="50.47" width="0" layer="20"/>
+<wire x1="0" y1="0" x2="63.48" y2="0" width="0" layer="20"/>
+<wire x1="63.48" y1="0" x2="63.48" y2="50.47" width="0" layer="20"/>
 <wire x1="63.48" y1="50.47" x2="0" y2="50.47" width="0" layer="20"/>
-<wire x1="0" y1="50.47" x2="1.27" y2="0" width="0" layer="20"/>
+<wire x1="0" y1="50.47" x2="0" y2="0" width="0" layer="20"/>
 <text x="10.16" y="46.99" size="1.016" layer="121" rot="R270">SDA</text>
 <text x="12.7" y="46.99" size="1.016" layer="121" rot="R270">SCL</text>
 <dimension x1="0" y1="50.47" x2="63.5" y2="50.8" x3="31.70386875" y3="59.5115625" layer="16"/>

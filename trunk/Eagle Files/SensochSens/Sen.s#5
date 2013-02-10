@@ -3814,6 +3814,11 @@ Simple slide switch. Spark Fun Electronics SKU : COM-00102</description>
 <wire x1="73.66" y1="180.34" x2="73.66" y2="177.8" width="0.2032" layer="91"/>
 <pinref part="GND7" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="GND"/>
+<wire x1="30.48" y1="198.12" x2="27.94" y2="198.12" width="0.2032" layer="91"/>
+<label x="27.94" y="198.12" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="3.3V" class="0">
 <segment>
