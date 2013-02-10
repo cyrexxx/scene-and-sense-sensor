@@ -126,6 +126,7 @@
 <dimension x1="63.48" y1="50.47" x2="63.5" y2="0" x3="81.269996875" y3="25.24204375" layer="16"/>
 <text x="54.61" y="45.72" size="1.27" layer="16" rot="MR0">Kartik Karuna</text>
 <text x="54.61" y="48.26" size="1.27" layer="16" rot="MR0">Designed by:</text>
+<text x="50.8" y="43.18" size="1.016" layer="16" rot="MR0">10-02-2013</text>
 </plain>
 <libraries>
 <library name="Synapse_SM700PC1">

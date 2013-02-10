@@ -3849,6 +3849,23 @@ Simple slide switch. Spark Fun Electronics SKU : COM-00102</description>
 <wire x1="-132.08" y1="-12.7" x2="-139.7" y2="-12.7" width="0.1524" layer="91"/>
 <label x="-139.7" y="-12.7" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="OUT"/>
+<wire x1="48.26" y1="203.2" x2="53.34" y2="203.2" width="0.1524" layer="91"/>
+<pinref part="C3" gate="G$1" pin="+"/>
+<wire x1="53.34" y1="200.66" x2="53.34" y2="203.2" width="0.1524" layer="91"/>
+<junction x="53.34" y="203.2"/>
+<pinref part="C4" gate="G$1" pin="1"/>
+<wire x1="63.5" y1="200.66" x2="63.5" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="203.2" x2="58.42" y2="203.2" width="0.1524" layer="91"/>
+<pinref part="R2" gate="G$1" pin="2"/>
+<wire x1="58.42" y1="203.2" x2="53.34" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="203.2" x2="73.66" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="203.2" x2="73.66" y2="200.66" width="0.1524" layer="91"/>
+<junction x="63.5" y="203.2"/>
+<label x="58.42" y="205.74" size="1.778" layer="95" rot="R90"/>
+<wire x1="58.42" y1="203.2" x2="58.42" y2="208.28" width="0.2032" layer="91"/>
+</segment>
 </net>
 <net name="RTS2" class="0">
 <segment>
@@ -4144,23 +4161,6 @@ Simple slide switch. Spark Fun Electronics SKU : COM-00102</description>
 <pinref part="R2" gate="G$1" pin="1"/>
 <pinref part="LED1" gate="G$1" pin="A"/>
 <wire x1="73.66" y1="187.96" x2="73.66" y2="190.5" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$4" class="0">
-<segment>
-<pinref part="U2" gate="G$1" pin="OUT"/>
-<wire x1="48.26" y1="203.2" x2="53.34" y2="203.2" width="0.1524" layer="91"/>
-<pinref part="C3" gate="G$1" pin="+"/>
-<wire x1="53.34" y1="200.66" x2="53.34" y2="203.2" width="0.1524" layer="91"/>
-<junction x="53.34" y="203.2"/>
-<pinref part="C4" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="200.66" x2="63.5" y2="203.2" width="0.1524" layer="91"/>
-<wire x1="63.5" y1="203.2" x2="53.34" y2="203.2" width="0.1524" layer="91"/>
-<pinref part="R2" gate="G$1" pin="2"/>
-<wire x1="63.5" y1="203.2" x2="73.66" y2="203.2" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="203.2" x2="73.66" y2="200.66" width="0.1524" layer="91"/>
-<junction x="63.5" y="203.2"/>
-<label x="66.04" y="205.74" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>

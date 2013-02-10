@@ -3617,6 +3617,162 @@ Simple slide switch. Spark Fun Electronics SKU : COM-00102</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="cy-7-seg">
+<packages>
+<package name="SMD-7SEG">
+<smd name="8" x="0" y="5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="9" x="1.5" y="5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="10" x="3" y="5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="7" x="-1.5" y="5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="6" x="-3" y="5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="5" x="-3" y="-5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="4" x="-1.5" y="-5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="3" x="0" y="-5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="2" x="1.5" y="-5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<smd name="1" x="3" y="-5.7" dx="1.5" dy="1" layer="1" rot="R90"/>
+<wire x1="-3.7" y1="6" x2="3.7" y2="6" width="0.127" layer="51"/>
+<wire x1="3.7" y1="6" x2="3.7" y2="-6" width="0.127" layer="51"/>
+<wire x1="3.7" y1="-6" x2="-3.7" y2="-6" width="0.127" layer="51"/>
+<wire x1="-3.7" y1="-6" x2="-3.7" y2="6" width="0.127" layer="51"/>
+<wire x1="-3.8" y1="6" x2="-3.8" y2="-6" width="0.2032" layer="21"/>
+<wire x1="-2.3" y1="6" x2="-2.2" y2="6" width="0.2032" layer="21"/>
+<wire x1="-0.8" y1="6" x2="-0.7" y2="6" width="0.2032" layer="21"/>
+<wire x1="0.7" y1="6" x2="0.8" y2="6" width="0.2032" layer="21"/>
+<wire x1="2.2" y1="6" x2="2.3" y2="6" width="0.2032" layer="21"/>
+<wire x1="2.2" y1="-6" x2="2.3" y2="-6" width="0.2032" layer="21"/>
+<wire x1="0.7" y1="-6" x2="0.8" y2="-6" width="0.2032" layer="21"/>
+<wire x1="-0.8" y1="-6" x2="-0.7" y2="-6" width="0.2032" layer="21"/>
+<wire x1="-2.3" y1="-6" x2="-2.2" y2="-6" width="0.2032" layer="21"/>
+<wire x1="3.8" y1="6" x2="3.8" y2="-6" width="0.2032" layer="21"/>
+<wire x1="2.8" y1="-4.300003125" x2="3.200003125" y2="-4.300003125" width="0.2032" layer="21"/>
+<text x="-3.800003125" y="6.900003125" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.000003125" y="-8.300003125" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+</packages>
+<symbols>
+<symbol name="KCSA03-102">
+<wire x1="2.794" y1="-3.683" x2="3.048" y2="-3.683" width="0.3048" layer="94"/>
+<wire x1="2.3368" y1="3.1242" x2="2.032" y2="2.8194" width="0.254" layer="94"/>
+<wire x1="2.032" y1="2.8194" x2="1.6256" y2="0.6096" width="0.254" layer="94"/>
+<wire x1="1.6256" y1="0.6096" x2="1.905" y2="0.3302" width="0.254" layer="94"/>
+<wire x1="1.905" y1="0.3302" x2="2.159" y2="0.5842" width="0.254" layer="94"/>
+<wire x1="2.159" y1="0.5842" x2="2.54" y2="2.921" width="0.254" layer="94"/>
+<wire x1="2.54" y1="2.921" x2="2.3368" y2="3.1242" width="0.254" layer="94"/>
+<wire x1="2.032" y1="3.429" x2="1.778" y2="3.175" width="0.254" layer="94"/>
+<wire x1="1.778" y1="3.175" x2="-0.762" y2="3.175" width="0.254" layer="94"/>
+<wire x1="-0.762" y1="3.175" x2="-1.016" y2="3.429" width="0.254" layer="94"/>
+<wire x1="-1.016" y1="3.429" x2="-0.762" y2="3.683" width="0.254" layer="94"/>
+<wire x1="-0.762" y1="3.683" x2="1.778" y2="3.683" width="0.254" layer="94"/>
+<wire x1="1.778" y1="3.683" x2="2.032" y2="3.429" width="0.254" layer="94"/>
+<wire x1="-1.3208" y1="3.1242" x2="-1.016" y2="2.8194" width="0.254" layer="94"/>
+<wire x1="-1.016" y1="2.8194" x2="-1.397" y2="0.6096" width="0.254" layer="94"/>
+<wire x1="-1.397" y1="0.6096" x2="-1.651" y2="0.3556" width="0.254" layer="94"/>
+<wire x1="-1.651" y1="0.3556" x2="-1.905" y2="0.6096" width="0.254" layer="94"/>
+<wire x1="-1.905" y1="0.6096" x2="-1.524" y2="2.921" width="0.254" layer="94"/>
+<wire x1="-1.524" y1="2.921" x2="-1.3208" y2="3.1242" width="0.254" layer="94"/>
+<wire x1="-1.4732" y1="-0.0762" x2="-1.143" y2="0.254" width="0.254" layer="94"/>
+<wire x1="-1.143" y1="0.254" x2="1.3462" y2="0.254" width="0.254" layer="94"/>
+<wire x1="1.3462" y1="0.254" x2="1.5494" y2="0.0508" width="0.254" layer="94"/>
+<wire x1="1.5494" y1="0.0508" x2="1.2446" y2="-0.254" width="0.254" layer="94"/>
+<wire x1="1.2446" y1="-0.254" x2="-1.2954" y2="-0.254" width="0.254" layer="94"/>
+<wire x1="-1.2954" y1="-0.254" x2="-1.4732" y2="-0.0762" width="0.254" layer="94"/>
+<wire x1="-1.8288" y1="-0.3302" x2="-1.5748" y2="-0.5842" width="0.254" layer="94"/>
+<wire x1="-2.286" y1="-3.1242" x2="-1.9558" y2="-2.794" width="0.254" layer="94"/>
+<wire x1="-1.9558" y1="-2.794" x2="-1.5748" y2="-0.5842" width="0.254" layer="94"/>
+<wire x1="-1.8288" y1="-0.3302" x2="-2.1082" y2="-0.6096" width="0.254" layer="94"/>
+<wire x1="-2.1082" y1="-0.6096" x2="-2.4892" y2="-2.921" width="0.254" layer="94"/>
+<wire x1="-2.4892" y1="-2.921" x2="-2.286" y2="-3.1242" width="0.254" layer="94"/>
+<wire x1="-1.9812" y1="-3.429" x2="-1.7272" y2="-3.175" width="0.254" layer="94"/>
+<wire x1="-1.7272" y1="-3.175" x2="0.8128" y2="-3.175" width="0.254" layer="94"/>
+<wire x1="0.8128" y1="-3.175" x2="1.0668" y2="-3.429" width="0.254" layer="94"/>
+<wire x1="1.0668" y1="-3.429" x2="0.8128" y2="-3.683" width="0.254" layer="94"/>
+<wire x1="0.8128" y1="-3.683" x2="-1.7272" y2="-3.683" width="0.254" layer="94"/>
+<wire x1="-1.7272" y1="-3.683" x2="-1.9812" y2="-3.429" width="0.254" layer="94"/>
+<wire x1="1.7018" y1="-0.4064" x2="1.4478" y2="-0.6604" width="0.254" layer="94"/>
+<wire x1="1.4478" y1="-0.6604" x2="1.0668" y2="-2.8194" width="0.254" layer="94"/>
+<wire x1="1.0668" y1="-2.8194" x2="1.3716" y2="-3.1242" width="0.254" layer="94"/>
+<wire x1="1.3716" y1="-3.1242" x2="1.5748" y2="-2.921" width="0.254" layer="94"/>
+<wire x1="1.5748" y1="-2.921" x2="1.9558" y2="-0.6604" width="0.254" layer="94"/>
+<wire x1="1.9558" y1="-0.6604" x2="1.7018" y2="-0.4064" width="0.254" layer="94"/>
+<wire x1="2.286" y1="2.794" x2="1.905" y2="0.635" width="0.4064" layer="94"/>
+<wire x1="1.778" y1="3.429" x2="-0.762" y2="3.429" width="0.4064" layer="94"/>
+<wire x1="-1.27" y1="2.794" x2="-1.651" y2="0.635" width="0.4064" layer="94"/>
+<wire x1="-1.27" y1="0" x2="1.27" y2="0" width="0.4064" layer="94"/>
+<wire x1="1.651" y1="-0.762" x2="1.27" y2="-2.794" width="0.4064" layer="94"/>
+<wire x1="0.762" y1="-3.429" x2="-1.651" y2="-3.429" width="0.4064" layer="94"/>
+<wire x1="-2.286" y1="-2.921" x2="-1.905" y2="-0.635" width="0.4064" layer="94"/>
+<wire x1="5.969" y1="8.89" x2="5.969" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="5.969" y1="7.62" x2="5.969" y2="5.08" width="0.4064" layer="94"/>
+<wire x1="5.969" y1="5.08" x2="5.969" y2="-7.62" width="0.4064" layer="94"/>
+<wire x1="5.969" y1="-7.62" x2="5.969" y2="-8.89" width="0.4064" layer="94"/>
+<wire x1="-5.08" y1="-8.89" x2="5.969" y2="-8.89" width="0.4064" layer="94"/>
+<wire x1="-5.08" y1="-8.89" x2="-5.08" y2="8.89" width="0.4064" layer="94"/>
+<wire x1="5.969" y1="8.89" x2="-5.08" y2="8.89" width="0.4064" layer="94"/>
+<wire x1="7.62" y1="7.62" x2="5.969" y2="7.62" width="0.1524" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="5.969" y2="5.08" width="0.1524" layer="94"/>
+<wire x1="7.62" y1="-7.62" x2="5.969" y2="-7.62" width="0.1524" layer="94"/>
+<circle x="2.921" y="-3.683" radius="0.254" width="0.3048" layer="94"/>
+<text x="-5.08" y="9.525" size="1.778" layer="95">&gt;NAME</text>
+<text x="-5.08" y="-11.43" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-6.477" y="7.874" size="1.27" layer="95">a</text>
+<text x="-6.477" y="5.334" size="1.27" layer="95">b</text>
+<text x="-6.477" y="2.794" size="1.27" layer="95">c</text>
+<text x="-6.477" y="0.254" size="1.27" layer="95">d</text>
+<text x="-6.477" y="-2.286" size="1.27" layer="95">e</text>
+<text x="-6.477" y="-4.826" size="1.27" layer="95">f</text>
+<text x="-6.477" y="-7.366" size="1.27" layer="95">g</text>
+<text x="0.508" y="6.858" size="1.524" layer="95">COM</text>
+<pin name="DP" x="10.16" y="-7.62" length="short" direction="pas" rot="R180"/>
+<pin name="F" x="-10.16" y="-5.08" visible="pad" length="middle" direction="pas"/>
+<pin name="D" x="-10.16" y="0" visible="pad" length="middle" direction="pas"/>
+<pin name="B" x="-10.16" y="5.08" visible="pad" length="middle" direction="pas"/>
+<pin name="A" x="-10.16" y="7.62" visible="pad" length="middle" direction="pas"/>
+<pin name="COM@1" x="10.16" y="7.62" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="C" x="-10.16" y="2.54" visible="pad" length="middle" direction="pas"/>
+<pin name="E" x="-10.16" y="-2.54" visible="pad" length="middle" direction="pas"/>
+<pin name="G" x="-10.16" y="-7.62" visible="pad" length="middle" direction="pas"/>
+<pin name="COM@2" x="10.16" y="5.08" visible="pad" length="short" direction="pas" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="KCSA03-102">
+<description>SURFACE MOUNT DISPLAY
+Light colour	green
+Character height	7.62 mm
+Polarity	                        C.C.
+Decimal point	                         right
+Peak wave length	565 nm
+Rated on-state current (per LED)	20 mA
+Forward voltage	2.2 VDC
+Light intensity typ.	10000 mcd@ 10 mA
+Conducting-state voltage max.	2.5 VDC
+
+https://www1.elfa.se/data1/wwwroot/assets/datasheets/caKingbright_SMD-LED-Display-KCSC03102_E.pdf</description>
+<gates>
+<gate name="G$1" symbol="KCSA03-102" x="0" y="0"/>
+</gates>
+<devices>
+<device name="SMD_7SEG" package="SMD-7SEG">
+<connects>
+<connect gate="G$1" pin="A" pad="7"/>
+<connect gate="G$1" pin="B" pad="6"/>
+<connect gate="G$1" pin="C" pad="4"/>
+<connect gate="G$1" pin="COM@1" pad="3"/>
+<connect gate="G$1" pin="COM@2" pad="8"/>
+<connect gate="G$1" pin="D" pad="2"/>
+<connect gate="G$1" pin="DP" pad="5"/>
+<connect gate="G$1" pin="E" pad="1"/>
+<connect gate="G$1" pin="F" pad="9"/>
+<connect gate="G$1" pin="G" pad="10"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3660,6 +3816,7 @@ Simple slide switch. Spark Fun Electronics SKU : COM-00102</description>
 <part name="GND10" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="LED4" library="SparkFun-LED" deviceset="LED" device="0603" value="BLUE"/>
 <part name="R5" library="SparkFun-Passives" deviceset="RESISTOR" device="0402-RES" value="330"/>
+<part name="U$1" library="cy-7-seg" deviceset="KCSA03-102" device="SMD_7SEG"/>
 </parts>
 <sheets>
 <sheet>
@@ -3731,6 +3888,7 @@ Simple slide switch. Spark Fun Electronics SKU : COM-00102</description>
 <instance part="GND10" gate="1" x="-63.5" y="119.38"/>
 <instance part="LED4" gate="G$1" x="-48.26" y="147.32"/>
 <instance part="R5" gate="G$1" x="-48.26" y="134.62" rot="R90"/>
+<instance part="U$1" gate="G$1" x="203.2" y="200.66"/>
 </instances>
 <busses>
 </busses>
