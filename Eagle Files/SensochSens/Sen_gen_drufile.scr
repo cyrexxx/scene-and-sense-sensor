@@ -1,0 +1,2 @@
+DRC SAVE 'E:/Senseoch/scene-and-sense-sensor/Eagle Files/SensochSens/Sen.dru';
+RUN brd_to_dsn_v6.ulp f;
