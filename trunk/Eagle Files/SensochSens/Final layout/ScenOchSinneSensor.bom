@@ -1,0 +1,28 @@
+Partlist exported from E:/Senseoch/scene-and-sense-sensor/Eagle Files/SensochSens/Final layout/ScenOchSinneSensor.sch at 14-02-2013 PM 07:44:00
+
+Assembly variant: 
+
+Qty Value              Device             Parts             
+1   1k                 RESISTOR0805-RES   R2                
+1   1uF                CAP0805            C4                
+1   10uF               CAP0805            C1                
+2   10uF               CAP_POL3528        C2, C3            
+1   22K                RN08               RN2               
+1   100k               RESISTOR0805-RES   R1                
+5   330                RESISTOR0603-RES   R3, R4, R5, R6, R7
+1   BLUE               LED0603            LED4              
+1   FTDI               FTDI_BASICPTH      JP1               
+1   GREEN              LED0603            LED2              
+2   HIX DIP            A1353HEX           CH, DIV_ID        
+1   I2C_BUS            M021X02_NO_SILK    JP3               
+1   KCSA03-102SMD_7SEG KCSA03-102SMD_7SEG U3                
+1   LIPO               JP4E               JP2               
+1   M05X2SHD_LOCK      M05X2SHD_LOCK      JP4               
+1   MIC5219            V_REG_LDOSMD       U2                
+1   RED                LED0603            LED1              
+1   RESET              TYCO_FSMSFSMSM     S2                
+1   S3                 SS22_SD            PRIMARY_SW        
+1   SM700PC1SMD        SM700PC1SMD        U1                
+1   Secondary sw       SWITCH-SPDTSMD     S1                
+1   TOGGLE             TYCO_FSMRACDA      S4                
+1   YELLOW             LED0603            LED3              
