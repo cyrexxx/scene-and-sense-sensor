@@ -1,0 +1,34 @@
+Partlist exported from E:/Senseoch/scene-and-sense-sensor/Eagle Files/SensochSens/Sen.sch at 11-02-2013 PM 12:17:35
+
+Assembly variant: 
+
+Part   Value              Device             Package          Description                                                    
+C1     10uF               CAP0402-CAP        0402-CAP         Capacitor                                                      
+C2     10uF               CAP_POL1206        EIA3216          Capacitor Polarized                                            
+C3     10uF               CAP_POL1206        EIA3216          Capacitor Polarized                                            
+C4     1uF                CAP0402-CAP        0402-CAP         Capacitor                                                      
+CH     HIX DIP            A1353HEX           A1353HEX         DIL/CODE SWITCH                                                
+DIV_ID HIX DIP            A1353HEX           A1353HEX         DIL/CODE SWITCH                                                
+JP1    FTDI               FTDI_BASICPTH      FTDI_BASIC       FTDI Basic header with labels                                  
+JP2    LIPO_charger       JP4E               JP4              JUMPER                                                         
+JP3    I2C_BUS            M021X02_NO_SILK    1X02_NO_SILK     Header 2                                                       
+LED1   RED                LED0603            LED-0603         LEDs                                                           
+LED2   GREEN              LED0603            LED-0603         LEDs                                                           
+LED3   YELLOW             LED0603            LED-0603         LEDs                                                           
+LED4   BLUE               LED0603            LED-0603         LEDs                                                           
+R1     100k               RESISTOR0402-RES   0402-RES         Resistor                                                       
+R2     1k                 RESISTOR0402-RES   0402-RES         Resistor                                                       
+R3     330                RESISTOR0402-RES   0402-RES         Resistor                                                       
+R4     330                RESISTOR0402-RES   0402-RES         Resistor                                                       
+R5     330                RESISTOR0402-RES   0402-RES         Resistor                                                       
+R6     330                RESISTOR0402-RES   0402-RES         Resistor                                                       
+R7     330                RESISTOR0402-RES   0402-RES         Resistor                                                       
+RN2    22K                RN08               RN-9             RESISTOR NETWORK                                               
+S1     Secondary sw       SWITCH-SPDTSMD     AYZ0202          SPST Switch                                                    
+S2     RESET              TYCO_FSMSFSMSM     TYCO_FSM         FSMSM 12 VDC 50 mA, FSM-SM                                     
+S3     Primary sw         A68-A31            A68-A31          SLIDING SWITCH                                                 
+S4     TOGGLE             TYCO_FSMRACDA      TYCO_FSMRACDA    Rated voltage                                                  
+U1     SM700PC1SMD        SM700PC1SMD        SYNAPSE_SN700PC1 This device is an ARM7 32bit RF device made by Synapse-Wireless
+U2     MIC5219            V_REG_LDOSMD       SOT23-5          Voltage Regulator LDO                                          
+U3     KCSA03-102SMD_7SEG KCSA03-102SMD_7SEG SMD-7SEG         SURFACE MOUNT DISPLAY                                          
+X2     ADC0-7             53047-10           53047-10         CONNECTOR                                                      
