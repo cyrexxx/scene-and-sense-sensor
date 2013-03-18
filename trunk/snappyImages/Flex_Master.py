@@ -28,7 +28,7 @@ from switchboard import *
 numHops = 4
 serverAddr = '\x00\x00\x01'
 
-if platform != "RF200":
+if platform != "RF266":
     compileError       #script only valid on RF266 /RF200
 
 
@@ -58,9 +58,11 @@ def printData(senstr):
      strflexdat = str(senstr)        # may not be needed check
      print strflexdat
      print "\n" 
+     """
      portaladd = '\x00\x00\x01'      # for debugging    
      mst='master '+strflexdat        # for debugging 
      rpc(portaladd,"logEvent",mst)   # for debugging
+     """
 
 #Devices who WANT a Master call this function to fetch Master's address ,returns Master's address
 def svrAddr():

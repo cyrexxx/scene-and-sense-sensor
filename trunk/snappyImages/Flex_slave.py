@@ -28,20 +28,41 @@ if platform != "SM700":
 
 # Device address bits, 3 bits in total from DIP switch
 
+addrBit0 = 2     # KB5
+addrBit1 = 4      #TMR1
+addrBit2 = 5     #TMR2 
+addrBit3 = 3
+
+SEG7_0 = 22
+SEG7_1 = 23
+SEG7_2 = 24
+SEG7_3 = 25
+SEG7_4 = 26
+SEG7_5 = 27
+SEG7_6 = 28
+SEG7_7 = 29
+ 
+"""
 addrBit0 = 10     # KB5
 addrBit1 = 9      #TMR1
 addrBit2 = 27     #TMR2
+"""
 
 def makeInput(pin):
-    setPinDir(pin, False)          # set direction of the pin as output
+    setPinDir(pin, False)          # set direction of the pin as input
     monitorPin(pin, True)          # Monitor for button press
   
+    
+def makeOutput(pin):
+    setPinDir(pin, True)          # set direction of the pin as output
+    
     
 # Things to do at startup
 @setHook(HOOK_STARTUP)
 def startupEvent():
     global addreBits
     global acount 
+    global SEG7_0,SEG7_1,SEG7_2,SEG7_3,SEG7_4,SEG7_5,SEG7_6,SEG7_7
     acount = 0
     
     findServer()                   ##in once server is ready 
@@ -51,9 +72,26 @@ def startupEvent():
     makeInput(addrBit0)
     makeInput(addrBit1)
     makeInput(addrBit2)
+    makeInput(addrBit3)
     setRate(1)                     # set rate of polling for buttons 
- 
+    makeOutput(SEG7_0)
+    makeOutput(SEG7_1)
+    makeOutput(SEG7_2)
+    makeOutput(SEG7_3)
+    makeOutput(SEG7_4)
+    makeOutput(SEG7_5)
+    makeOutput(SEG7_6)
+    makeOutput(SEG7_7)
     addreBits = buttonRead()       #initialize buttons, get ADD bits 
+    
+    SEG7_0 = 0
+    SEG7_1 = 0
+    SEG7_2 = 0
+    SEG7_3 = 0
+    SEG7_4 = 0
+    SEG7_5 = 0
+    SEG7_6 = 0
+    SEG7_7 = 0
     
        
 # Tries to find an active server
@@ -93,7 +131,7 @@ def timer10MSEvent(currentMs):
     
     inpstr= '$'+str(addreBits) + sens                  # package the Values in to one msg
     sendData(inpstr)                                   #call function to broadcast data
-    
+       
 #fuct to broadcast received data to portal or master     
 def sendData(mdata):
     #if serverAddr == '\x00\x00\x01':      # if no Master is found send Msg to portal 
@@ -136,14 +174,14 @@ def timer1MSEvent(currentMs):
 def buttonEvent(pinNum, isSet):    
      #Action taken when the on-board buttton is pressed (i.e. change address )
      global addreBits
-     if pinNum == (addrBit0 or addrBit1 or addrBit2):
+     if pinNum == (addrBit0 or addrBit1 or addrBit2 or addrBit3 ):
         addreBits = buttonRead()
         
     
     
 #convert address bits to intiger number 
 def buttonRead():
-    add = ((4*(readPin(addrBit0))) +(2*(readPin(addrBit1)))+(1*(readPin(addrBit2))))
+    add = ((8*(not(readPin(addrBit3))))+(4*(not(readPin(addrBit2)))) +(2*(not(readPin(addrBit1))))+(1*(not(readPin(addrBit0)))))
     addstr = "Device_"+str(add)
     #mcastRpc( 1,5,"logEvent",addstr)
     #insert code for changing device name
