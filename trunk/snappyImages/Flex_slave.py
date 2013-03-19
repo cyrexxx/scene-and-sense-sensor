@@ -55,6 +55,7 @@ def makeInput(pin):
     
 def makeOutput(pin):
     setPinDir(pin, True)          # set direction of the pin as output
+    writePin(pin, False)
     
     
 # Things to do at startup
@@ -84,14 +85,14 @@ def startupEvent():
     makeOutput(SEG7_7)
     addreBits = buttonRead()       #initialize buttons, get ADD bits 
     
-    SEG7_0 = 0
-    SEG7_1 = 0
-    SEG7_2 = 0
-    SEG7_3 = 0
-    SEG7_4 = 0
-    SEG7_5 = 0
-    SEG7_6 = 0
-    SEG7_7 = 0
+    SEG7_0 = True
+    SEG7_1 = True
+    SEG7_2 = True
+    SEG7_3 = True
+    SEG7_4 = True
+    SEG7_5 = True
+    SEG7_6 = True
+    SEG7_7 = True
     
        
 # Tries to find an active server
