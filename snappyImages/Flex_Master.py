@@ -28,7 +28,7 @@ from switchboard import *
 numHops = 4
 serverAddr = '\x00\x00\x01'
 
-if platform != "RF266":
+if platform != "RF200":
     compileError       #script only valid on RF266 /RF200
 
 
@@ -39,7 +39,7 @@ secondCounter = 0
 def startup():
 
     # Initialize UART
-    initUart(1, 9600)           # 9600 baud
+    initUart(1, 1)           # 115200 baud
     flowControl(1, False)       # No flow control
 
     # Connect UART to transparent data endpoint.
@@ -57,8 +57,8 @@ def echo(obj):
 def printData(senstr):
      strflexdat = str(senstr)        # may not be needed check
      print strflexdat
-     print "\n" 
      """
+     print "\n" 
      portaladd = '\x00\x00\x01'      # for debugging    
      mst='master '+strflexdat        # for debugging 
      rpc(portaladd,"logEvent",mst)   # for debugging
