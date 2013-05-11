@@ -28,7 +28,7 @@ from switchboard import *
 numHops = 4
 serverAddr = '\x00\x00\x01'
 
-if platform != "RF200":
+if platform != "RF266":
     compileError       #script only valid on RF266 /RF200
 
 

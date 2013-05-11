@@ -33,6 +33,7 @@ addrBit1 = 4      #TMR1
 addrBit2 = 5     #TMR2 
 addrBit3 = 3
 
+"""
 SEG7_0 = 22
 SEG7_1 = 23
 SEG7_2 = 24
@@ -41,8 +42,6 @@ SEG7_4 = 26
 SEG7_5 = 27
 SEG7_6 = 28
 SEG7_7 = 29
- 
-"""
 addrBit0 = 10     # KB5
 addrBit1 = 9      #TMR1
 addrBit2 = 27     #TMR2
@@ -63,8 +62,10 @@ def makeOutput(pin):
 def startupEvent():
     global addreBits
     global acount 
-    global SEG7_0,SEG7_1,SEG7_2,SEG7_3,SEG7_4,SEG7_5,SEG7_6,SEG7_7
+    #global SEG7_0,SEG7_1,SEG7_2,SEG7_3,SEG7_4,SEG7_5,SEG7_6,SEG7_7
     acount = 0
+    Send_c=0
+    sec_count=0
     
     findServer()                   ##in once server is ready 
     
@@ -75,6 +76,7 @@ def startupEvent():
     makeInput(addrBit2)
     makeInput(addrBit3)
     setRate(1)                     # set rate of polling for buttons 
+    """
     makeOutput(SEG7_0)
     makeOutput(SEG7_1)
     makeOutput(SEG7_2)
@@ -83,8 +85,10 @@ def startupEvent():
     makeOutput(SEG7_5)
     makeOutput(SEG7_6)
     makeOutput(SEG7_7)
+    """
     addreBits = buttonRead()       #initialize buttons, get ADD bits 
     
+    """
     SEG7_0 = True
     SEG7_1 = True
     SEG7_2 = True
@@ -93,6 +97,7 @@ def startupEvent():
     SEG7_5 = True
     SEG7_6 = True
     SEG7_7 = True
+    """
     
        
 # Tries to find an active server
@@ -117,21 +122,36 @@ def serverAt(addr):
     #global requiredRange
     #requiredrange = newRange
     
+# Do every 100S    
+@setHook(HOOK_100MS)
+def timer100MSEvent(currentMs):
+    global sec_count,Send_c
+    
+    send_str = '$$' + str(Send_c)
+    portAddr = '\x00\x00\x01'     # if no Master is found send Msg to portal 
+    rpc(portAddr,"logEvent",send_str)
+    sec_count=0
+    Send_c=0
+   
+    
+
+
 # Do every 10 MS    
 @setHook(HOOK_10MS)
 def timer10MSEvent(currentMs):
-    global sens,inpstr
+    global sens,inpstr,Send_c
     
     # Read in the 8 sensor analog values from the Sensors
     # formating :sensor_number#ADC_value. .......
     
-    sens =  ',' + str(ADC_0)  + ',' +  str(ADC_1) + ',' + str(ADC_2) + ',' +  str(ADC_3) + ',' +  str(ADC_4) + ','+ str(ADC_5) + ','+ str(ADC_6) + ','+ str(ADC_7)+','
-    #sens =  ':1#' + str(ADC_0)  + '.2#' +  str(ADC_1) + '.3#' + str(ADC_2) + '.4#' +  str(ADC_3) + '.5#' +  str(ADC_4) + '.6#'+ str(ADC_5) + '.7#'+ str(ADC_6) + '.8#'+ str(ADC_7)+'.'
-  
+    #sens =  '$'+str(addreBits) + ',' + str(ADC_0)  #+ ',' +  str(ADC_1) + ',' + str(ADC_2) + ',' +  str(ADC_3) + ',' +  str(ADC_4) + ','#+ str(ADC_5) + ','+ str(ADC_6) + ','+ str(ADC_7)+','
+    sens =  str(ADC_1)  + ',' + str(ADC_0)  + ',' +  str(ADC_1) + ',' + str(ADC_2) + ',' +  str(ADC_3) +"," + str(Send_c)
+        
     # formating  Slave_address + sens (:sensor_number#ADC_value. .......)
     
-    inpstr= '$'+str(addreBits) + sens                  # package the Values in to one msg
-    sendData(inpstr)                                   #call function to broadcast data
+    #inpstr= '$'+str(addreBits) + sens                  # package the Values in to one msg
+    Send_c=Send_c+1
+    sendData(sens)                                   #call function to broadcast data
        
 #fuct to broadcast received data to portal or master     
 def sendData(mdata):
@@ -150,8 +170,15 @@ def timer1MSEvent(currentMs):
     
     # reading each ADC once every 9 MS
     # Using Vref=1.6 V
-    if acount == 0:
-        ADC_0 = readAdc(9)    #ADC 0
+    if acount == 8:
+      ADC_0 = readAdc(9)    #ADC 0
+      ADC_1 = readAdc(10)   #ADC 1
+      ADC_2 = readAdc(11)   #ADC 2
+      ADC_3 = acount   #ADC 3
+      acount =-1
+    else:
+      acount+=1
+    """
     elif acount == 1:
         ADC_1 = readAdc(10)   #ADC 1
     elif acount == 2:
@@ -167,8 +194,8 @@ def timer1MSEvent(currentMs):
     elif acount == 7:
         ADC_7 = readAdc(16)   #ADC 7
         acount =-1    
-    
-    acount+=1
+    """
+    #acount+=1
        
 # Do every time there is a change in any monitored PIN 
 @setHook(HOOK_GPIN)
